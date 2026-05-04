@@ -3,6 +3,7 @@ import React from 'react'
 import Card from '../ui/Card'
 
 export default function PromotionCard({ promo }) {
+  const expiry = promo.expiresAt || promo.expires_at
   return (
     <Card className="border border-gray-700">
       <div className="flex justify-between items-start">
@@ -13,7 +14,7 @@ export default function PromotionCard({ promo }) {
         <a href={promo.link} target="_blank" rel="noreferrer" className="text-indigo-400 text-sm">Join</a>
       </div>
       {promo.description && <p className="text-sm text-gray-300 mt-2">{promo.description}</p>}
-      <div className="text-xs text-gray-500 mt-2">Expires: {new Date(promo.expiresAt).toLocaleDateString()}</div>
+      <div className="text-xs text-gray-500 mt-2">Expires: {expiry ? new Date(expiry).toLocaleDateString() : 'Unknown'}</div>
     </Card>
   )
 }

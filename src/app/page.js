@@ -21,6 +21,7 @@ export default function Home() {
         setLoading(false)
       }
     }
+
     fetchUser()
   }, [])
 
@@ -34,7 +35,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      {/* Hero Section */}
       <div className="container mx-auto px-4 py-20">
         <div className="text-center mb-16">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
@@ -71,4 +71,28 @@ export default function Home() {
                   </Button>
                 </Link>
               </>
-            )}\n          </div>\n        </div>\n\n        {/* Features Section */}\n        <div className="grid md:grid-cols-3 gap-8 mt-16">\n          <div className="bg-slate-800 rounded-lg p-6 border border-purple-500 border-opacity-30">\n            <div className="text-3xl mb-4">👤</div>\n            <h3 className="text-xl font-bold text-white mb-2">Create Profile</h3>\n            <p className="text-gray-300">Add your game profiles for Roblox, Minecraft, Fortnite and more</p>\n          </div>\n          <div className="bg-slate-800 rounded-lg p-6 border border-purple-500 border-opacity-30">\n            <div className="text-3xl mb-4\">🎮</div>\n            <h3 className="text-xl font-bold text-white mb-2\">Discover Players</h3>\n            <p className="text-gray-300\">Find other gamers playing your favorite games</p>\n          </div>\n          <div className=\"bg-slate-800 rounded-lg p-6 border border-purple-500 border-opacity-30\">\n            <div className=\"text-3xl mb-4\">⭐</div>\n            <h3 className=\"text-xl font-bold text-white mb-2\">Featured Servers</h3>\n            <p className=\"text-gray-300\">Explore promoted game servers and opportunities</p>\n          </div>\n        </div>\n      </div>\n    </div>\n  )\n}\n
+            )}
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8 mt-16">
+          <div className="bg-slate-800 rounded-lg p-6 border border-purple-500 border-opacity-30">
+            <div className="text-3xl mb-4">👤</div>
+            <h3 className="text-xl font-bold text-white mb-2">Create Profile</h3>
+            <p className="text-gray-300">Add your game profiles for Roblox, Minecraft, Fortnite and more</p>
+          </div>
+          <div className="bg-slate-800 rounded-lg p-6 border border-purple-500 border-opacity-30">
+            <div className="text-3xl mb-4">🎮</div>
+            <h3 className="text-xl font-bold text-white mb-2">Discover Players</h3>
+            <p className="text-gray-300">Find other gamers playing your favorite games</p>
+          </div>
+          <div className="bg-slate-800 rounded-lg p-6 border border-purple-500 border-opacity-30">
+            <div className="text-3xl mb-4">⭐</div>
+            <h3 className="text-xl font-bold text-white mb-2">Featured Servers</h3>
+            <p className="text-gray-300">Explore promoted game servers and opportunities</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}

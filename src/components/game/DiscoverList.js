@@ -29,7 +29,7 @@ export default function DiscoverList({ initialProfiles = [] }) {
       </div>
       <div className="grid gap-3">
         {filtered.map((p) => (
-          <PlayerCard key={p._id} profile={p} />
+          <PlayerCard key={p.id || p._id} profile={p} />
         ))}
         {filtered.length === 0 && <div className="text-gray-400">No players found.</div>}
       </div>

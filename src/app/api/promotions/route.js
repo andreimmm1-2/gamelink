@@ -1,5 +1,5 @@
-import { supabase } from '../../../../lib/supabase'
-import { requireAdmin } from '../../../../lib/middleware/adminMiddleware'
+import { supabase } from '../../../lib/supabase'
+import { requireAdmin } from '../../../lib/middleware/adminMiddleware'
 
 export async function GET(req) {
   try {

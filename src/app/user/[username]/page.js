@@ -1,5 +1,5 @@
 import React from 'react'
-import ProfileHeader from '../../../../components/profile/ProfileHeader'
+import ProfileHeader from '../../../components/profile/ProfileHeader'
 
 async function fetchUser(username) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || ''}/api/users/${encodeURIComponent(username)}`, { cache: 'no-store' })

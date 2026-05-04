@@ -29,6 +29,10 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
+# local deployment helpers / generated files
+scripts/vercel_env_setup.ps1
+vercel_projects.json
+
 # IDE
 .vscode/
 .idea/

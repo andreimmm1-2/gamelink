@@ -1,5 +1,5 @@
-import { supabase } from '../../../../../lib/supabase'
-import { getUserFromRequest } from '../../../../../lib/middleware/authMiddleware'
+import { supabase } from '../../../../lib/supabase'
+import { getUserFromRequest } from '../../../../lib/middleware/authMiddleware'
 
 export async function GET(req, { params }) {
   try {
