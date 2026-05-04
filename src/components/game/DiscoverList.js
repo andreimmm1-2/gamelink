@@ -23,15 +23,46 @@ export default function DiscoverList({ initialProfiles = [] }) {
 
   return (
     <div>
-      <div className="flex flex-col md:flex-row md:items-center md:space-x-4 mb-4">
-        <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search username, in-game name or description" className="p-2 rounded bg-gray-900 flex-1 mb-2 md:mb-0" />
-        <input value={availability} onChange={(e) => setAvailability(e.target.value)} placeholder="Filter by availability" className="p-2 rounded bg-gray-900 w-full md:w-64" />
+      {/* Search & Filter */}
+      <div className="mb-6 space-y-3">
+        <div>
+          <label className="block text-gray-300 text-sm font-medium mb-2">Search Players</label>
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search by username, in-game name, or description..."
+            className="w-full bg-slate-700 text-white px-4 py-2 rounded border border-purple-500 border-opacity-30 focus:outline-none focus:border-purple-500"
+          />
+        </div>
+        <div>
+          <label className="block text-gray-300 text-sm font-medium mb-2">Filter by Availability</label>
+          <input
+            value={availability}
+            onChange={(e) => setAvailability(e.target.value)}
+            placeholder="e.g., EST, Evenings, Weekends..."
+            className="w-full bg-slate-700 text-white px-4 py-2 rounded border border-purple-500 border-opacity-30 focus:outline-none focus:border-purple-500"
+          />
+        </div>
       </div>
-      <div className="grid gap-3">
-        {filtered.map((p) => (
-          <PlayerCard key={p.id || p._id} profile={p} />
-        ))}
-        {filtered.length === 0 && <div className="text-gray-400">No players found.</div>}
+
+      {/* Results */}
+      <div>
+        {filtered.length > 0 && (
+          <p className="text-gray-400 text-sm mb-3">
+            Showing <span className="text-purple-400 font-bold">{filtered.length}</span> {filtered.length === 1 ? 'player' : 'players'}
+          </p>
+        )}
+        <div className="space-y-3">
+          {filtered.map((p) => (
+            <PlayerCard key={p.id || p._id} profile={p} />
+          ))}
+          {filtered.length === 0 && (
+            <div className="text-center py-8">
+              <p className="text-gray-400">No players match your search</p>
+              <p className="text-gray-500 text-sm mt-1">Try adjusting your filters</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )
