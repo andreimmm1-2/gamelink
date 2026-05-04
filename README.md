@@ -4,10 +4,10 @@ A production-ready gaming social platform where gamers create accounts, add game
 
 ## Tech Stack
 
-- **Frontend:** Next.js (App Router) + Tailwind CSS
+- **Frontend:** Next.js 14 (App Router) + Tailwind CSS
 - **Backend:** Next.js API routes
-- **Database:** MongoDB with Mongoose
-- **Auth:** JWT (email + password)
+- **Database:** Supabase PostgreSQL
+- **Auth:** JWT (email + password) with bcryptjs hashing
 
 ## Features
 
@@ -24,7 +24,7 @@ A production-ready gaming social platform where gamers create accounts, add game
 ### Prerequisites
 
 - Node.js 18+ (download from https://nodejs.org/)
-- MongoDB Atlas account (free at https://www.mongodb.com/cloud/atlas)
+- Supabase account (free at https://supabase.com)
 
 ### Installation
 
@@ -44,9 +44,10 @@ A production-ready gaming social platform where gamers create accounts, add game
    cp .env.example .env
    ```
 
-4. Update `.env` with your values:
-   - `MONGODB_URI`: Your MongoDB Atlas connection string
-   - `JWT_SECRET`: A strong random secret
+4. Update `.env` (rename to `.env.local`) with your values:
+   - `NEXT_PUBLIC_SUPABASE_URL`: Your Supabase project URL (from Settings > API)
+   - `SUPABASE_SERVICE_KEY`: Your Supabase service role key (from Settings > API)
+   - `JWT_SECRET`: A strong random secret (openssl rand -base64 32)
    - `NEXT_PUBLIC_BASE_URL`: `http://localhost:3000` (for local dev)
 
 5. Start the development server:
@@ -65,16 +66,25 @@ npm start
 
 ## Deployment to Vercel
 
-Vercel offers the easiest deployment for Next.js apps.
+1. Push your code to GitHub:
+   ```bash
+   git push origin main
+   ```
 
-1. Push your code to GitHub
-2. Sign up at https://vercel.com with your GitHub account
-3. Import your repository
-4. Set environment variables in Vercel dashboard:
-   - `MONGODB_URI`
-   - `JWT_SECRET`
-   - `NEXT_PUBLIC_BASE_URL` (Vercel will provide your URL)
-5. Deploy — done!
+2. Visit https://vercel.com and sign in with your GitHub account
+
+3. Click "Add New" → "Project" and select your GameLink repository
+
+4. Set environment variables in Vercel project settings:
+   - `NEXT_PUBLIC_SUPABASE_URL` - From Supabase > Settings > API
+   - `SUPABASE_SERVICE_KEY` - From Supabase > Settings > API (service_role key)
+   - `JWT_SECRET` - Generate with: `openssl rand -base64 32`
+   - `JWT_EXPIRES_IN` - `7d`
+   - `NEXT_PUBLIC_BASE_URL` - Your Vercel domain (e.g., https://gamelink.vercel.app)
+
+5. Click "Deploy" and wait for the build to complete
+
+6. Your app is now live!
 
 ## API Endpoints
 
@@ -116,22 +126,22 @@ src/
 │   ├── promotions/             # Promotion components
 │   └── ui/                     # Reusable UI (Button, Card, Input)
 ├── lib/
-│   ├── db.js                   # MongoDB connection
+│   ├── supabase.js             # Supabase client initialization
 │   ├── auth.js                 # JWT helpers
 │   └── middleware/             # Auth/admin middleware
-└── models/                     # Mongoose schemas
 ```
 
 ## Environment Variables
 
 See `.env.example` for all required variables.
 
-Key variables:
-- `MONGODB_URI` - MongoDB connection string
-- `JWT_SECRET` - Secret key for JWT signing
+Required variables:
+- `NEXT_PUBLIC_SUPABASE_URL` - Supabase project URL (public)
+- `SUPABASE_SERVICE_KEY` - Supabase service role key (private)
+- `JWT_SECRET` - Secret key for JWT signing (private)
 - `JWT_EXPIRES_IN` - Token expiration (default: 7d)
 - `NEXT_PUBLIC_BASE_URL` - Your app's base URL (public)
-- `ADMIN_USER_IDS` - Comma-separated user IDs for admin access
+- `ADMIN_USER_IDS` - Comma-separated user UUIDs for admin access (optional)
 
 ## Future Improvements
 
