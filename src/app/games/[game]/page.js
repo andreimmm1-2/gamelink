@@ -4,6 +4,43 @@ import DiscoverList from '../../../components/game/DiscoverList'
 import PromotionCard from '../../../components/promotions/PromotionCard'
 
 const GAMES = ['Roblox', 'Minecraft', 'Fortnite', 'AmongUs', 'Other']
+const GAME_INFO = {
+  'Roblox': {
+    emoji: '🎮',
+    description: 'The platform for 3D experiences. Imagination is the limit as you create the worlds, play the games, and be anything you can imagine.',
+    players: 'Millions',
+    founded: '2006',
+    genre: 'Platform'
+  },
+  'Minecraft': {
+    emoji: '⛏️',
+    description: 'Build, explore, survive, and thrive. From the creators of Minecraft, explore infinite worlds and build everything from the simplest of homes to the grandest of castles.',
+    players: 'Millions',
+    founded: '2011',
+    genre: 'Sandbox'
+  },
+  'Fortnite': {
+    emoji: '🎯',
+    description: 'Battle Royale. Land, scavenge for weapons and items, and fight to be the last player standing. Drop into a 100-player free-for-all every match.',
+    players: 'Millions',
+    founded: '2018',
+    genre: 'Battle Royale'
+  },
+  'AmongUs': {
+    emoji: '👨‍🚀',
+    description: 'A social deduction game. An online party game of teamwork and betrayal. 4-15 players gather together to discuss who among them is an impostor.',
+    players: 'Millions',
+    founded: '2018',
+    genre: 'Social Deduction'
+  },
+  'Other': {
+    emoji: '🕹️',
+    description: 'Discover other amazing games and find your squad.',
+    players: 'Many',
+    founded: 'Various',
+    genre: 'Various'
+  }
+}
 
 async function fetchProfilesForGame(game) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || ''}/api/profiles?game=${encodeURIComponent(game)}`, { cache: 'no-store' })
@@ -19,37 +56,49 @@ async function fetchPromotionsForGame(game) {
   return (data.promotions || []).filter((p) => p.game.toLowerCase() === game.toLowerCase())
 }
 
-const GAME_EMOJIS = {
-  'Roblox': '🎮',
-  'Minecraft': '⛏️',
-  'Fortnite': '🎯',
-  'AmongUs': '👨‍🚀',
-  'Other': '🕹️'
-}
-
 export default async function GamePage({ params }) {
   const { game } = params
   const profiles = await fetchProfilesForGame(game)
   const promotions = await fetchPromotionsForGame(game)
+  const gameInfo = GAME_INFO[game] || GAME_INFO['Other']
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-slate-800 to-slate-900 border-b border-slate-600 border-opacity-30">
-        <div className="max-w-6xl mx-auto px-4 py-8">
+    <main className="min-h-screen bg-slate-900">
+      {/* Hero Section */}
+      <div className="bg-gradient-to-r from-slate-800 to-slate-900 border-b border-slate-700 py-12">
+        <div className="max-w-6xl mx-auto px-4">
           <Link href="/discover" className="text-slate-400 hover:text-slate-300 text-sm mb-4 inline-block">
             ← Back to Discovery
           </Link>
-          <h1 className="text-4xl font-bold text-white mb-2">
-            {GAME_EMOJIS[game]} {game} Players
-          </h1>
-          <p className="text-gray-400">
-            Found <span className="text-slate-400 font-bold">{profiles.length}</span> {profiles.length === 1 ? 'player' : 'players'} playing {game}
-          </p>
+          <div className="flex items-start gap-6">
+            <div className="text-7xl">{gameInfo.emoji}</div>
+            <div className="flex-1">
+              <h1 className="text-5xl font-bold text-white mb-3">{game}</h1>
+              <p className="text-xl text-slate-300 mb-4">{gameInfo.description}</p>
+              <div className="flex flex-wrap gap-6">
+                <div>
+                  <div className="text-sm text-slate-400">Players Online</div>
+                  <div className="text-2xl font-bold text-slate-300">{gameInfo.players}</div>
+                </div>
+                <div>
+                  <div className="text-sm text-slate-400">Founded</div>
+                  <div className="text-2xl font-bold text-slate-300">{gameInfo.founded}</div>
+                </div>
+                <div>
+                  <div className="text-sm text-slate-400">Genre</div>
+                  <div className="text-2xl font-bold text-slate-300">{gameInfo.genre}</div>
+                </div>
+                <div>
+                  <div className="text-sm text-slate-400">GameLink Players</div>
+                  <div className="text-2xl font-bold text-slate-300">{profiles.length}</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 py-8">
+      <div className="max-w-6xl mx-auto px-4 py-12">
         {/* Players Section */}
         <section className="mb-12">
           <div className="bg-slate-800 rounded-lg p-6 border border-slate-600 border-opacity-30">
