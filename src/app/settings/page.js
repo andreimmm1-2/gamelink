@@ -94,17 +94,23 @@ export default function SettingsPage() {
     }
     
     setDeleting(true)
+    setError('')
     try {
       const res = await fetch(`/api/users/${user.id}`, {
         method: 'DELETE'
       })
       
-      if (!res.ok) throw new Error('Failed to delete account')
+      const data = await res.json()
+      
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to delete account')
+      }
       
       document.cookie = 'token=; Max-Age=0; path=/;'
-      router.push('/')
+      setTimeout(() => router.push('/'), 1000)
     } catch (err) {
-      setError(err.message)
+      console.error('Delete account error:', err)
+      setError(err.message || 'Failed to delete account. Please try again.')
       setDeleting(false)
     }
   }

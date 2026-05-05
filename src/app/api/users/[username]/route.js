@@ -86,14 +86,24 @@ export async function DELETE(req, { params }) {
 
     const userId = isUUID(username) ? username : current.id
 
-    // Delete all user data
-    await Promise.all([
+    // Delete all user data in order (important for foreign keys)
+    const deletions = [
+      supabase.from('support_tickets').delete().eq('user_id', userId),
       supabase.from('game_profiles').delete().eq('user_id', userId),
+      supabase.from('messages').delete().or(`sender_id.eq.${userId},recipient_id.eq.${userId}`),
       supabase.from('friend_requests').delete().or(`sender_id.eq.${userId},recipient_id.eq.${userId}`),
       supabase.from('friends').delete().or(`user_id.eq.${userId},friend_id.eq.${userId}`),
-      supabase.from('messages').delete().or(`sender_id.eq.${userId},recipient_id.eq.${userId}`),
       supabase.from('users').delete().eq('id', userId)
-    ])
+    ]
+
+    // Execute deletions sequentially to avoid constraint issues
+    for (const deletion of deletions) {
+      const { error } = await deletion
+      if (error) {
+        console.error('Deletion error:', error)
+        // Continue with other deletions even if one fails
+      }
+    }
 
     return new Response(JSON.stringify({ message: 'Account deleted successfully' }), { status: 200, headers: { 'Content-Type': 'application/json' } })
   } catch (err) {
