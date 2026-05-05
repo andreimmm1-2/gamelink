@@ -60,7 +60,7 @@ export default function GameProfileForm({ onCreated }) {
         <select
           value={game}
           onChange={(e) => setGame(e.target.value)}
-          className="w-full bg-slate-700 text-white px-3 py-2 rounded border border-purple-500 border-opacity-30 focus:outline-none focus:border-purple-500"
+          className="w-full bg-slate-700 text-white px-3 py-2 rounded border border-slate-600 border-opacity-30 focus:outline-none focus:border-slate-600"
         >
           {GAMES.map((g) => (
             <option key={g} value={g}>{g}</option>
@@ -76,7 +76,7 @@ export default function GameProfileForm({ onCreated }) {
           value={inGameName}
           onChange={(e) => setInGameName(e.target.value)}
           placeholder="Your username in the game"
-          className="w-full bg-slate-700 text-white px-3 py-2 rounded border border-purple-500 border-opacity-30 focus:outline-none focus:border-purple-500"
+          className="w-full bg-slate-700 text-white px-3 py-2 rounded border border-slate-600 border-opacity-30 focus:outline-none focus:border-slate-600"
         />
       </div>
       
@@ -87,7 +87,7 @@ export default function GameProfileForm({ onCreated }) {
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Tell others about your playstyle..."
           rows="3"
-          className="w-full bg-slate-700 text-white px-3 py-2 rounded border border-purple-500 border-opacity-30 focus:outline-none focus:border-purple-500 resize-none"
+          className="w-full bg-slate-700 text-white px-3 py-2 rounded border border-slate-600 border-opacity-30 focus:outline-none focus:border-slate-600 resize-none"
         />
       </div>
       
@@ -98,14 +98,14 @@ export default function GameProfileForm({ onCreated }) {
           value={availability}
           onChange={(e) => setAvailability(e.target.value)}
           placeholder="e.g., Evenings 6PM-10PM EST"
-          className="w-full bg-slate-700 text-white px-3 py-2 rounded border border-purple-500 border-opacity-30 focus:outline-none focus:border-purple-500"
+          className="w-full bg-slate-700 text-white px-3 py-2 rounded border border-slate-600 border-opacity-30 focus:outline-none focus:border-slate-600"
         />
       </div>
       
       <button
         type="submit"
         disabled={loading}
-        className="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 rounded transition disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full bg-slate-700 hover:bg-slate-600 text-white font-medium py-2 rounded transition disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {loading ? 'Creating...' : 'Create Profile'}
       </button>

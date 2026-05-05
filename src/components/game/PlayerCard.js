@@ -16,7 +16,7 @@ export default function PlayerCard({ profile }) {
   
   return (
     <Link href={`/user/${user.username}`}>
-      <div className="bg-slate-700 rounded-lg p-4 border border-purple-500 border-opacity-20 hover:border-opacity-50 hover:bg-slate-600 transition cursor-pointer">
+      <div className="bg-slate-700 rounded-lg p-4 border border-slate-600 border-opacity-20 hover:border-opacity-50 hover:bg-slate-600 transition cursor-pointer">
         <div className="flex items-start gap-4">
           {/* Avatar */}
           <div className="flex-shrink-0">
@@ -31,11 +31,11 @@ export default function PlayerCard({ profile }) {
           {/* Info */}
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1">
-              <h3 className="text-white font-bold text-lg hover:text-purple-300">@{user.username}</h3>
+              <h3 className="text-white font-bold text-lg hover:text-slate-400">@{user.username}</h3>
               <span className={`text-xs font-bold ${gameColor}`}>{profile.game}</span>
             </div>
 
-            <p className="text-purple-300 font-semibold mb-2">{profile.inGameName || profile.in_game_name}</p>
+            <p className="text-slate-400 font-semibold mb-2">{profile.inGameName || profile.in_game_name}</p>
 
             {profile.description && (
               <p className="text-gray-300 text-sm mb-2 line-clamp-2">{profile.description}</p>

@@ -44,7 +44,7 @@ export default function GameProfileList({ profiles = [], onDeleted }) {
       {profiles.map((p) => (
         <div
           key={p.id || p._id}
-          className="bg-slate-700 rounded-lg p-4 border border-purple-500 border-opacity-20 hover:border-opacity-50 transition"
+          className="bg-slate-700 rounded-lg p-4 border border-slate-600 border-opacity-20 hover:border-opacity-50 transition"
         >
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1">

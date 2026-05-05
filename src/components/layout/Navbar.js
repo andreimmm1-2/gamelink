@@ -28,22 +28,22 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group min-w-fit">
           <div className="relative w-10 h-10">
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-purple-700 rounded-lg shadow-lg shadow-purple-500/50"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-slate-600 to-slate-700 rounded-lg shadow-lg shadow-slate-600/50"></div>
             <div className="absolute inset-0 flex items-center justify-center rounded-lg">
               <span className="text-white font-black text-xl">G</span>
             </div>
           </div>
           <div className="flex flex-col">
-            <span className="text-xl font-black text-white group-hover:text-purple-300 transition bg-gradient-to-r from-white to-purple-300 bg-clip-text text-transparent group-hover:from-purple-300 group-hover:to-purple-500">
+            <span className="text-xl font-black text-white group-hover:text-slate-400 transition bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent group-hover:from-slate-400 group-hover:to-slate-600">
               GameLink
             </span>
-            <span className="text-xs text-slate-500 group-hover:text-purple-400 transition">Gaming Community</span>
+            <span className=\"text-xs text-slate-500 group-hover:text-slate-400 transition\">Gaming Community</span>
           </div>
         </Link>
 
         {/* Desktop Menu */}
         <div className="hidden lg:flex items-center gap-8">
-          <Link href="/discover" className="text-slate-300 hover:text-purple-400 transition font-medium">
+          <Link href="/discover" className="text-slate-300 hover:text-slate-400 transition font-medium">
             Discover
           </Link>
           
@@ -52,7 +52,7 @@ export default function Navbar() {
             <button
               onMouseEnter={() => setGameDropdown(true)}
               onMouseLeave={() => setGameDropdown(false)}
-              className="text-slate-300 hover:text-purple-400 transition font-medium flex items-center gap-1"
+              className="text-slate-300 hover:text-slate-400 transition font-medium flex items-center gap-1"
             >
               Games
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -70,7 +70,7 @@ export default function Navbar() {
                   <Link
                     key={game}
                     href={`/games/${game}`}
-                    className="block px-4 py-2 text-slate-300 hover:bg-purple-600 hover:text-white transition"
+                    className="block px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-white transition"
                   >
                     {game}
                   </Link>
@@ -79,7 +79,7 @@ export default function Navbar() {
             )}
           </div>
 
-          <Link href="/help" className="text-slate-300 hover:text-purple-400 transition font-medium">
+          <Link href="/help" className="text-slate-300 hover:text-slate-400 transition font-medium">
             Help & Support
           </Link>
         </div>
@@ -88,7 +88,7 @@ export default function Navbar() {
         <div className="flex items-center gap-4">
           <Link
             href="/dashboard"
-            className="hidden md:block px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-semibold transition"
+            className="hidden md:block px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-semibold transition"
           >
             Dashboard
           </Link>
@@ -106,13 +106,13 @@ export default function Navbar() {
 
             {userMenu && (
               <div className="absolute right-0 mt-2 bg-slate-800 border border-slate-700 rounded-lg shadow-lg py-2 min-w-48 animate-slideDown">
-                <Link href="/dashboard" className="block px-4 py-2 text-slate-300 hover:bg-purple-600 hover:text-white transition">
+                <Link href="/dashboard" className="block px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-white transition">
                   Dashboard
                 </Link>
-                <Link href="/settings" className="block px-4 py-2 text-slate-300 hover:bg-purple-600 hover:text-white transition">
+                <Link href="/settings" className="block px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-white transition">
                   Settings
                 </Link>
-                <Link href="/messages" className="block px-4 py-2 text-slate-300 hover:bg-purple-600 hover:text-white transition">
+                <Link href="/messages" className="block px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-white transition">
                   Messages
                 </Link>
                 <hr className="border-slate-700 my-2" />
@@ -142,26 +142,26 @@ export default function Navbar() {
       {isOpen && (
         <div className="lg:hidden border-t border-slate-700 bg-slate-800">
           <div className="container py-4 space-y-4">
-            <Link href="/discover" className="block text-slate-300 hover:text-purple-400 transition">
+            <Link href="/discover" className="block text-slate-300 hover:text-slate-400 transition">
               Discover
             </Link>
             {GAMES.map(game => (
               <Link
                 key={game}
                 href={`/games/${game}`}
-                className="block text-slate-300 hover:text-purple-400 transition pl-4"
+                className="block text-slate-300 hover:text-slate-400 transition pl-4"
               >
                 {game}
               </Link>
             ))}
-            <Link href="/help" className="block text-slate-300 hover:text-purple-400 transition">
+            <Link href="/help" className="block text-slate-300 hover:text-slate-400 transition">
               Help & Support
             </Link>
             <hr className="border-slate-700" />
-            <Link href="/dashboard" className="block text-slate-300 hover:text-purple-400 transition">
+            <Link href="/dashboard" className="block text-slate-300 hover:text-slate-400 transition">
               Dashboard
             </Link>
-            <Link href="/settings" className="block text-slate-300 hover:text-purple-400 transition">
+            <Link href="/settings" className="block text-slate-300 hover:text-slate-400 transition">
               Settings
             </Link>
           </div>

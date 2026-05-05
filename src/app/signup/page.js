@@ -41,9 +41,9 @@ export default function Signup() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center px-4">
       <div className="w-full max-w-md">
-        <div className="bg-slate-800 rounded-lg p-8 border border-purple-500 border-opacity-30">
+        <div className="bg-slate-800 rounded-lg p-8 border border-slate-600 border-opacity-30">
           <h1 className="text-3xl font-bold text-white mb-2 text-center">Join GameLink</h1>
           <p className="text-gray-400 text-center mb-8">Create your gaming profile today</p>
 
@@ -62,7 +62,7 @@ export default function Signup() {
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="yourname"
                 required
-                className="w-full bg-slate-700 text-white px-4 py-2 rounded border border-purple-500 border-opacity-30 focus:outline-none focus:border-purple-500"
+                className="w-full bg-slate-700 text-white px-4 py-2 rounded border border-slate-600 border-opacity-30 focus:outline-none focus:border-slate-600"
               />
             </div>
 
@@ -74,7 +74,7 @@ export default function Signup() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
                 required
-                className="w-full bg-slate-700 text-white px-4 py-2 rounded border border-purple-500 border-opacity-30 focus:outline-none focus:border-purple-500"
+                className="w-full bg-slate-700 text-white px-4 py-2 rounded border border-slate-600 border-opacity-30 focus:outline-none focus:border-slate-600"
               />
             </div>
 
@@ -86,14 +86,14 @@ export default function Signup() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 required
-                className="w-full bg-slate-700 text-white px-4 py-2 rounded border border-purple-500 border-opacity-30 focus:outline-none focus:border-purple-500"
+                className="w-full bg-slate-700 text-white px-4 py-2 rounded border border-slate-600 border-opacity-30 focus:outline-none focus:border-slate-600"
               />
             </div>
 
             <Button
               type="submit"
               disabled={loading}
-              className="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 rounded mt-6"
+              className="w-full bg-slate-700 hover:bg-slate-600 text-white font-medium py-2 rounded mt-6"
             >
               {loading ? 'Creating account...' : 'Sign Up'}
             </Button>
@@ -101,7 +101,7 @@ export default function Signup() {
 
           <p className="text-gray-400 text-center mt-6">
             Already have an account?{' '}
-            <Link href="/login" className="text-purple-400 hover:text-purple-300">
+            <Link href="/login" className="text-slate-400 hover:text-slate-300">
               Sign in
             </Link>
           </p>

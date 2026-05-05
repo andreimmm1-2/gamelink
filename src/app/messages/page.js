@@ -67,7 +67,7 @@ export default function MessagesPage() {
   return (
     <main className="min-h-screen bg-slate-900">
       <div className="container py-12">
-        <Link href="/" className="text-purple-400 hover:text-purple-300 text-sm mb-6 inline-block">
+        <Link href="/" className="text-slate-400 hover:text-slate-300 text-sm mb-6 inline-block">
           ← Back
         </Link>
 
@@ -79,7 +79,7 @@ export default function MessagesPage() {
             onClick={() => setActiveTab('chats')}
             className={`px-4 py-3 font-semibold transition ${
               activeTab === 'chats'
-                ? 'text-purple-400 border-b-2 border-purple-400'
+                ? 'text-slate-400 border-b-2 border-slate-400'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
@@ -89,7 +89,7 @@ export default function MessagesPage() {
             onClick={() => setActiveTab('requests')}
             className={`px-4 py-3 font-semibold transition ${
               activeTab === 'requests'
-                ? 'text-purple-400 border-b-2 border-purple-400'
+                ? 'text-slate-400 border-b-2 border-slate-400'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
@@ -103,7 +103,7 @@ export default function MessagesPage() {
             {conversations.length === 0 ? (
               <div className="text-center py-12">
                 <p className="text-slate-400 mb-4">No conversations yet</p>
-                <Link href="/discover" className="text-purple-400 hover:text-purple-300">
+                <Link href="/discover" className="text-slate-400 hover:text-slate-300">
                   Find players to chat with
                 </Link>
               </div>
@@ -114,7 +114,7 @@ export default function MessagesPage() {
                   href={`/messages/${conv.friend.id}`}
                   className="block"
                 >
-                  <div className="bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-purple-500 rounded-lg p-4 transition">
+                  <div className="bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-slate-600 rounded-lg p-4 transition">
                     <div className="flex items-start justify-between">
                       <div>
                         <h3 className="text-white font-semibold hover:text-purple-400">

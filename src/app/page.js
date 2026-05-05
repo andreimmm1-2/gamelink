@@ -43,7 +43,7 @@ export default function Home() {
     <div className="min-h-screen bg-slate-900">
       {/* Hero Section */}
       <section className="relative py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-800/20 to-transparent"></div>
         <div className="container relative">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
@@ -60,7 +60,7 @@ export default function Home() {
                   <>
                     <Link
                       href="/dashboard"
-                      className="px-8 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-semibold transition"
+                      className="px-8 py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-semibold transition"
                     >
                       Go to Dashboard
                     </Link>
@@ -75,7 +75,7 @@ export default function Home() {
                   <>
                     <Link
                       href="/signup"
-                      className="px-8 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-semibold transition"
+                      className="px-8 py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-semibold transition"
                     >
                       Get Started
                     </Link>
@@ -92,15 +92,15 @@ export default function Home() {
               {/* Stats */}
               <div className="grid grid-cols-3 gap-6 mt-12">
                 <div>
-                  <div className="text-3xl font-bold text-purple-400">4000+</div>
+                  <div className="text-3xl font-bold text-slate-400">4000+</div>
                   <p className="text-slate-400 text-sm">Active Players</p>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-purple-400">4</div>
+                  <div className="text-3xl font-bold text-slate-400">4</div>
                   <p className="text-slate-400 text-sm">Supported Games</p>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-purple-400">100%</div>
+                  <div className="text-3xl font-bold text-slate-400">100%</div>
                   <p className="text-slate-400 text-sm">Free to Use</p>
                 </div>
               </div>
@@ -140,11 +140,11 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {GAMES.map((game) => (
               <Link key={game.name} href={`/games/${game.name}`}>
-                <div className="group bg-slate-800 border border-slate-700 hover:border-purple-500 rounded-xl p-6 transition cursor-pointer h-full">
+                <div className="group bg-slate-800 border border-slate-700 hover:border-slate-600 rounded-xl p-6 transition cursor-pointer h-full">
                   <div className="text-6xl mb-4 group-hover:scale-110 transition">{game.emoji}</div>
-                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-purple-400">{game.name}</h3>
+                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-slate-400">{game.name}</h3>
                   <p className="text-slate-400 text-sm">{game.count} players</p>
-                  <div className="mt-4 text-purple-400 opacity-0 group-hover:opacity-100 transition">→</div>
+                  <div className="mt-4 text-slate-400 opacity-0 group-hover:opacity-100 transition">→</div>
                 </div>
               </Link>
             ))}

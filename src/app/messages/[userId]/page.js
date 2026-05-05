@@ -90,7 +90,7 @@ export default function ChatPage({ params }) {
       <div className="min-h-screen bg-slate-900 flex items-center justify-center">
         <div className="text-center">
           <p className="text-slate-400 mb-4">User not found</p>
-          <Link href="/messages" className="text-purple-400 hover:text-purple-300">
+          <Link href="/messages" className="text-slate-400 hover:text-slate-300">
             Back to messages
           </Link>
         </div>
@@ -107,7 +107,7 @@ export default function ChatPage({ params }) {
             ← Back
           </Link>
           <Link href={`/user/${friend.username}`}>
-            <h2 className="text-xl font-bold text-white hover:text-purple-400">
+            <h2 className="text-xl font-bold text-white hover:text-slate-400">
               @{friend.username}
             </h2>
           </Link>
@@ -131,7 +131,7 @@ export default function ChatPage({ params }) {
                 <div
                   className={`max-w-xs px-4 py-2 rounded-lg ${
                     msg.sender_id === currentUser?.id
-                      ? 'bg-purple-600 text-white'
+                      ? 'bg-slate-700 text-white'
                       : 'bg-slate-800 text-slate-100'
                   }`}
                 >

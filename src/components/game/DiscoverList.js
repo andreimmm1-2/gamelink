@@ -31,7 +31,7 @@ export default function DiscoverList({ initialProfiles = [] }) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search by username, in-game name, or description..."
-            className="w-full bg-slate-700 text-white px-4 py-2 rounded border border-purple-500 border-opacity-30 focus:outline-none focus:border-purple-500"
+            className="w-full bg-slate-700 text-white px-4 py-2 rounded border border-slate-600 border-opacity-30 focus:outline-none focus:border-slate-600"
           />
         </div>
         <div>
@@ -40,7 +40,7 @@ export default function DiscoverList({ initialProfiles = [] }) {
             value={availability}
             onChange={(e) => setAvailability(e.target.value)}
             placeholder="e.g., EST, Evenings, Weekends..."
-            className="w-full bg-slate-700 text-white px-4 py-2 rounded border border-purple-500 border-opacity-30 focus:outline-none focus:border-purple-500"
+            className="w-full bg-slate-700 text-white px-4 py-2 rounded border border-slate-600 border-opacity-30 focus:outline-none focus:border-slate-600"
           />
         </div>
       </div>
@@ -49,7 +49,7 @@ export default function DiscoverList({ initialProfiles = [] }) {
       <div>
         {filtered.length > 0 && (
           <p className="text-gray-400 text-sm mb-3">
-            Showing <span className="text-purple-400 font-bold">{filtered.length}</span> {filtered.length === 1 ? 'player' : 'players'}
+            Showing <span className="text-slate-400 font-bold">{filtered.length}</span> {filtered.length === 1 ? 'player' : 'players'}
           </p>
         )}
         <div className="space-y-3">
