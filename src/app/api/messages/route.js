@@ -1,14 +1,9 @@
-import { createClient } from '@supabase/supabase-js'
-import { verifyAuth } from '../../../lib/auth'
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_KEY
-)
+import { supabase } from '../../../lib/supabase'
+import { getUserFromRequest } from '../../../lib/middleware/authMiddleware'
 
 export async function POST(req) {
   try {
-    const user = await verifyAuth(req)
+    const user = await getUserFromRequest(req)
     if (!user) return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 })
 
     const { recipientId, content } = await req.json()
@@ -52,7 +47,7 @@ export async function POST(req) {
 
 export async function GET(req) {
   try {
-    const user = await verifyAuth(req)
+    const user = await getUserFromRequest(req)
     if (!user) return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 })
 
     // Get list of conversations (friends with recent messages)

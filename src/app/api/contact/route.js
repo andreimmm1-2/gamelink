@@ -1,5 +1,3 @@
-import nodemailer from 'nodemailer'
-
 export async function POST(req) {
   try {
     const { name, email, subject, message } = await req.json()
