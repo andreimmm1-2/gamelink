@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import ProfileHeader from '../../../components/profile/ProfileHeader'
+import FriendRequestButton from '../../../components/profile/FriendRequestButton'
 
 async function fetchUser(username) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || ''}/api/users/${encodeURIComponent(username)}`, { cache: 'no-store' })
@@ -128,9 +129,7 @@ export default async function ProfilePage({ params }) {
       <div className="bg-gradient-to-r from-purple-900/50 to-slate-900/50 border-t border-purple-500 border-opacity-30 mt-12">
         <div className="max-w-4xl mx-auto px-4 py-8 text-center">
           <p className="text-gray-300 mb-4">Want to connect with {user.username}?</p>
-          <Link href="/discover" className="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition">
-            Find More Players
-          </Link>
+          <FriendRequestButton targetUserId={user.id} />
         </div>
       </div>
     </main>
