@@ -43,7 +43,7 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center">
         <div className="text-white text-lg">Loading your dashboard...</div>
       </div>
     )
@@ -51,14 +51,14 @@ export default function DashboardPage() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center">
         <div className="text-white text-lg">Please sign in to access your dashboard.</div>
       </div>
     )
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
@@ -76,15 +76,15 @@ export default function DashboardPage() {
 
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          <div className="bg-slate-800 rounded-lg p-6 border border-purple-500 border-opacity-30">
+          <div className="bg-slate-800 rounded-lg p-6 border border-slate-600 border-opacity-30">
             <div className="text-gray-400 text-sm mb-1">Total Profiles</div>
             <div className="text-3xl font-bold text-white">{profiles.length}</div>
           </div>
-          <div className="bg-slate-800 rounded-lg p-6 border border-purple-500 border-opacity-30">
+          <div className="bg-slate-800 rounded-lg p-6 border border-slate-600 border-opacity-30">
             <div className="text-gray-400 text-sm mb-1">Member Since</div>
             <div className="text-lg font-bold text-white">{new Date(user.created_at).toLocaleDateString()}</div>
           </div>
-          <div className="bg-slate-800 rounded-lg p-6 border border-purple-500 border-opacity-30">
+          <div className="bg-slate-800 rounded-lg p-6 border border-slate-600 border-opacity-30">
             <div className="text-gray-400 text-sm mb-1">Account Status</div>
             <div className="text-lg font-bold text-green-400">Active</div>
           </div>
@@ -94,7 +94,7 @@ export default function DashboardPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Form Section */}
           <div className="lg:col-span-1">
-            <div className="bg-slate-800 rounded-lg p-6 border border-purple-500 border-opacity-30">
+            <div className="bg-slate-800 rounded-lg p-6 border border-slate-600 border-opacity-30">
               <h2 className="text-xl font-bold text-white mb-4">Create Profile</h2>
               <GameProfileForm onCreated={() => setRefreshCount((value) => value + 1)} />
             </div>
@@ -102,7 +102,7 @@ export default function DashboardPage() {
 
           {/* Profiles Section */}
           <div className="lg:col-span-2">
-            <div className="bg-slate-800 rounded-lg p-6 border border-purple-500 border-opacity-30">
+            <div className="bg-slate-800 rounded-lg p-6 border border-slate-600 border-opacity-30">
               <h2 className="text-xl font-bold text-white mb-4">Your Game Profiles</h2>
               {profiles.length === 0 ? (
                 <div className="text-center py-8">
