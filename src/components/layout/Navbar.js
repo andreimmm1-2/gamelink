@@ -13,6 +13,11 @@ export default function Navbar() {
   const [userMenu, setUserMenu] = useState(false)
 
   async function handleLogout() {
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' })
+    } catch (err) {
+      console.error('Logout error:', err)
+    }
     document.cookie = 'token=; Max-Age=0; path=/;'
     router.push('/')
   }
@@ -21,13 +26,19 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 bg-slate-900 border-b border-slate-700">
       <div className="container py-4 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group min-w-fit">
-          <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-purple-700 rounded-lg flex items-center justify-center flex-shrink-0">
-            <span className="text-white font-bold text-lg">G</span>
+        <Link href="/" className="flex items-center gap-3 group min-w-fit">
+          <div className="relative w-10 h-10">
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-purple-700 rounded-lg shadow-lg shadow-purple-500/50"></div>
+            <div className="absolute inset-0 flex items-center justify-center rounded-lg">
+              <span className="text-white font-black text-xl">G</span>
+            </div>
           </div>
-          <span className="text-xl font-bold text-white group-hover:text-purple-400 transition">
-            GameLink
-          </span>
+          <div className="flex flex-col">
+            <span className="text-xl font-black text-white group-hover:text-purple-300 transition bg-gradient-to-r from-white to-purple-300 bg-clip-text text-transparent group-hover:from-purple-300 group-hover:to-purple-500">
+              GameLink
+            </span>
+            <span className="text-xs text-slate-500 group-hover:text-purple-400 transition">Gaming Community</span>
+          </div>
         </Link>
 
         {/* Desktop Menu */}
