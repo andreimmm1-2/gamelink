@@ -19,7 +19,7 @@ export default function Navbar() {
       console.error('Logout error:', err)
     }
     document.cookie = 'token=; Max-Age=0; path=/;'
-    router.push('/')
+    window.location.reload()
   }
 
   return (

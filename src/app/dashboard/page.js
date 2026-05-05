@@ -21,6 +21,12 @@ export default function DashboardPage() {
         const currentUser = meData.user || null
         setUser(currentUser)
 
+        // Redirect to login if not authenticated
+        if (!currentUser) {
+          router.push('/login')
+          return
+        }
+
         if (currentUser?.id) {
           const profilesRes = await fetch(`/api/profiles?userId=${currentUser.id}`, { cache: 'no-store' })
           const profilesData = await profilesRes.json()

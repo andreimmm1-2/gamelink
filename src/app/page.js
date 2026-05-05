@@ -4,31 +4,43 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
 const GAMES = [
-  { name: 'Roblox', emoji: '🎮', count: 1200 },
-  { name: 'Minecraft', emoji: '⛏️', count: 850 },
-  { name: 'Fortnite', emoji: '🎯', count: 620 },
-  { name: 'AmongUs', emoji: '👨‍🚀', count: 340 },
+  { name: 'Roblox', emoji: '🎮' },
+  { name: 'Minecraft', emoji: '⛏️' },
+  { name: 'Fortnite', emoji: '🎯' },
+  { name: 'AmongUs', emoji: '👨‍🚀' },
 ]
 
 export default function Home() {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [stats, setStats] = useState({ players: 0, profiles: 0 })
 
   useEffect(() => {
-    async function fetchUser() {
+    async function fetchData() {
       try {
-        const res = await fetch('/api/auth/me', { method: 'GET' })
-        const data = await res.json()
-        setUser(data.user || null)
+        // Fetch user
+        const userRes = await fetch('/api/auth/me', { method: 'GET' })
+        const userData = await userRes.json()
+        setUser(userData.user || null)
+
+        // Fetch real stats
+        const profilesRes = await fetch('/api/profiles', { method: 'GET' })
+        const profilesData = await profilesRes.json()
+        const allProfiles = profilesData.profiles || []
+        
+        const uniquePlayers = new Set(allProfiles.map(p => p.user_id)).size
+        setStats({ 
+          players: uniquePlayers, 
+          profiles: allProfiles.length 
+        })
       } catch (err) {
-        console.error('Failed to fetch user:', err)
-        setUser(null)
+        console.error('Failed to fetch data:', err)
       } finally {
         setLoading(false)
       }
     }
 
-    fetchUser()
+    fetchData()
   }, [])
 
   if (loading) {
@@ -92,11 +104,11 @@ export default function Home() {
               {/* Stats */}
               <div className="grid grid-cols-3 gap-6 mt-12">
                 <div>
-                  <div className="text-3xl font-bold text-slate-400">4000+</div>
+                  <div className="text-3xl font-bold text-slate-400">{stats.players}</div>
                   <p className="text-slate-400 text-sm">Active Players</p>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-slate-400">4</div>
+                  <div className="text-3xl font-bold text-slate-400">{GAMES.length}</div>
                   <p className="text-slate-400 text-sm">Supported Games</p>
                 </div>
                 <div>
@@ -143,7 +155,7 @@ export default function Home() {
                 <div className="group bg-slate-800 border border-slate-700 hover:border-slate-600 rounded-xl p-6 transition cursor-pointer h-full">
                   <div className="text-6xl mb-4 group-hover:scale-110 transition">{game.emoji}</div>
                   <h3 className="text-xl font-bold text-white mb-2 group-hover:text-slate-400">{game.name}</h3>
-                  <p className="text-slate-400 text-sm">{game.count} players</p>
+                  <p className="text-slate-400 text-sm">Discover players</p>
                   <div className="mt-4 text-slate-400 opacity-0 group-hover:opacity-100 transition">→</div>
                 </div>
               </Link>
@@ -157,7 +169,7 @@ export default function Home() {
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="group">
-              <div className="bg-slate-800 rounded-lg p-8 border border-slate-700 group-hover:border-purple-500 transition h-full">
+              <div className="bg-slate-800 rounded-lg p-8 border border-slate-700 group-hover:border-slate-600 transition h-full">
                 <div className="text-4xl mb-4">👤</div>
                 <h3 className="text-lg font-bold text-white mb-2">Create Your Profile</h3>
                 <p className="text-slate-400 text-sm">Set up your gaming profile and showcase your skills across multiple games.</p>
@@ -165,7 +177,7 @@ export default function Home() {
             </div>
 
             <div className="group">
-              <div className="bg-slate-800 rounded-lg p-8 border border-slate-700 group-hover:border-purple-500 transition h-full">
+              <div className="bg-slate-800 rounded-lg p-8 border border-slate-700 group-hover:border-slate-600 transition h-full">
                 <div className="text-4xl mb-4">🔍</div>
                 <h3 className="text-lg font-bold text-white mb-2">Discover Players</h3>
                 <p className="text-slate-400 text-sm">Search and filter players by game, timezone, and availability to find your perfect match.</p>
@@ -173,7 +185,7 @@ export default function Home() {
             </div>
 
             <div className="group">
-              <div className="bg-slate-800 rounded-lg p-8 border border-slate-700 group-hover:border-purple-500 transition h-full">
+              <div className="bg-slate-800 rounded-lg p-8 border border-slate-700 group-hover:border-slate-600 transition h-full">
                 <div className="text-4xl mb-4">💬</div>
                 <h3 className="text-lg font-bold text-white mb-2">Connect & Chat</h3>
                 <p className="text-slate-400 text-sm">Send friend requests and start chatting with players you want to team up with.</p>
@@ -181,7 +193,7 @@ export default function Home() {
             </div>
 
             <div className="group">
-              <div className="bg-slate-800 rounded-lg p-8 border border-slate-700 group-hover:border-purple-500 transition h-full">
+              <div className="bg-slate-800 rounded-lg p-8 border border-slate-700 group-hover:border-slate-600 transition h-full">
                 <div className="text-4xl mb-4">⭐</div>
                 <h3 className="text-lg font-bold text-white mb-2">Featured Servers</h3>
                 <p className="text-slate-400 text-sm">Discover promoted game servers and exclusive gaming communities and events.</p>
@@ -196,11 +208,11 @@ export default function Home() {
         <div className="container">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="text-5xl font-bold gradient-text mb-2">4000+</div>
+              <div className="text-5xl font-bold gradient-text mb-2">{stats.players}</div>
               <p className="text-slate-400">Active Players</p>
             </div>
             <div className="text-center">
-              <div className="text-5xl font-bold gradient-text mb-2">15000+</div>
+              <div className="text-5xl font-bold gradient-text mb-2">{stats.profiles}</div>
               <p className="text-slate-400">Profiles Created</p>
             </div>
             <div className="text-center">
@@ -218,7 +230,7 @@ export default function Home() {
       {/* CTA Section */}
       <section className="py-20 border-t border-slate-700">
         <div className="container">
-          <div className="bg-gradient-to-r from-purple-900/20 to-slate-900 border border-purple-500/30 rounded-2xl p-16 text-center">
+          <div className="bg-gradient-to-r from-slate-800/50 to-slate-900 border border-slate-700/30 rounded-2xl p-16 text-center">
             <h2 className="text-4xl font-bold text-white mb-4">
               Ready to Find Your Squad?
             </h2>
@@ -229,7 +241,7 @@ export default function Home() {
               <div className="flex gap-4 justify-center flex-wrap">
                 <Link
                   href="/signup"
-                  className="px-8 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-semibold transition"
+                  className="px-8 py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-semibold transition"
                 >
                   Sign Up Now
                 </Link>

@@ -17,6 +17,14 @@ export default function MessagesPage() {
 
   async function loadData() {
     try {
+      // Check authentication first
+      const userRes = await fetch('/api/auth/me')
+      const userData = await userRes.json()
+      if (!userData.user) {
+        router.push('/login')
+        return
+      }
+
       // Load conversations
       const msgRes = await fetch('/api/messages')
       const msgData = await msgRes.json()
