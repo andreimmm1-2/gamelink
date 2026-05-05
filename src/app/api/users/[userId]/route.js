@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
-import { verifyAuth } from '../../../../lib/auth'
+import { getUserFromRequest } from '../../../../lib/middleware/authMiddleware'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -9,7 +9,7 @@ const supabase = createClient(
 // PATCH - Update user bio and other profile data
 export async function PATCH(req, { params }) {
   try {
-    const user = await verifyAuth(req)
+    const user = await getUserFromRequest(req)
     if (!user) {
       return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 })
     }
@@ -42,7 +42,7 @@ export async function PATCH(req, { params }) {
 // DELETE - Delete user account
 export async function DELETE(req, { params }) {
   try {
-    const user = await verifyAuth(req)
+    const user = await getUserFromRequest(req)
     if (!user) {
       return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 })
     }
