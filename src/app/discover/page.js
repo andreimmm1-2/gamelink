@@ -2,11 +2,11 @@ import React from 'react'
 import Link from 'next/link'
 
 const GAMES = [
-  { name: 'Roblox', emoji: '🎮', description: 'The platform for 3D experiences' },
-  { name: 'Minecraft', emoji: '⛏️', description: 'Build, explore, and survive' },
-  { name: 'Fortnite', emoji: '🎯', description: 'Battle royale action game' },
-  { name: 'AmongUs', emoji: '👨‍🚀', description: 'Social deduction game' },
-  { name: 'Other', emoji: '🕹️', description: 'Other games' }
+  { name: 'Roblox', image: 'https://images.roblox.com/Roblox_logo.svg', description: 'The platform for 3D experiences' },
+  { name: 'Minecraft', image: 'https://www.minecraft.net/content/dam/games/minecraft/key-art/minecraft-key-visual-logo.png', description: 'Build, explore, and survive' },
+  { name: 'Fortnite', image: 'https://www.fortniteultimate.com/logo.png', description: 'Battle royale action game' },
+  { name: 'AmongUs', image: 'https://innersloth.com/logo.png', description: 'Social deduction game' },
+  { name: 'Other', image: 'https://cdn-icons-png.flaticon.com/512/413/413502.png', description: 'Other games' }
 ]
 
 async function getGameStats() {
@@ -53,8 +53,8 @@ export default async function DiscoverPage() {
               className="group"
             >
               <div className="h-full bg-gradient-to-br from-slate-800 to-slate-700 rounded-lg p-6 border border-slate-600 border-opacity-30 hover:border-opacity-100 transition hover:shadow-lg hover:shadow-slate-500/20">
-                {/* Game Emoji */}
-                <div className="text-5xl mb-3 group-hover:scale-110 transition">{game.emoji}</div>
+                {/* Game Logo */}
+                <img src={game.image} alt={game.name} className="h-20 w-20 object-contain mb-3 group-hover:scale-110 transition" />
 
                 {/* Game Name */}
                 <h2 className="text-xl font-bold text-white mb-1">{game.name}</h2>

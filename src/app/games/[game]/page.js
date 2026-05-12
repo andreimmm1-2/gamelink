@@ -6,35 +6,35 @@ import PromotionCard from '../../../components/promotions/PromotionCard'
 const GAMES = ['Roblox', 'Minecraft', 'Fortnite', 'AmongUs', 'Other']
 const GAME_INFO = {
   'Roblox': {
-    emoji: '🎮',
+    image: 'https://images.roblox.com/Roblox_logo.svg',
     description: 'The platform for 3D experiences. Imagination is the limit as you create the worlds, play the games, and be anything you can imagine.',
     players: 'Millions',
     founded: '2006',
     genre: 'Platform'
   },
   'Minecraft': {
-    emoji: '⛏️',
+    image: 'https://www.minecraft.net/content/dam/games/minecraft/key-art/minecraft-key-visual-logo.png',
     description: 'Build, explore, survive, and thrive. From the creators of Minecraft, explore infinite worlds and build everything from the simplest of homes to the grandest of castles.',
     players: 'Millions',
     founded: '2011',
     genre: 'Sandbox'
   },
   'Fortnite': {
-    emoji: '🎯',
+    image: 'https://www.fortniteultimate.com/logo.png',
     description: 'Battle Royale. Land, scavenge for weapons and items, and fight to be the last player standing. Drop into a 100-player free-for-all every match.',
     players: 'Millions',
     founded: '2018',
     genre: 'Battle Royale'
   },
   'AmongUs': {
-    emoji: '👨‍🚀',
+    image: 'https://innersloth.com/logo.png',
     description: 'A social deduction game. An online party game of teamwork and betrayal. 4-15 players gather together to discuss who among them is an impostor.',
     players: 'Millions',
     founded: '2018',
     genre: 'Social Deduction'
   },
   'Other': {
-    emoji: '🕹️',
+    image: 'https://cdn-icons-png.flaticon.com/512/413/413502.png',
     description: 'Discover other amazing games and find your squad.',
     players: 'Many',
     founded: 'Various',
@@ -71,7 +71,7 @@ export default async function GamePage({ params }) {
             ← Back to Discovery
           </Link>
           <div className="flex items-start gap-6">
-            <div className="text-7xl">{gameInfo.emoji}</div>
+            <img src={gameInfo.image} alt={game} className="h-24 w-24 object-contain" />
             <div className="flex-1">
               <h1 className="text-5xl font-bold text-white mb-3">{game}</h1>
               <p className="text-xl text-slate-300 mb-4">{gameInfo.description}</p>

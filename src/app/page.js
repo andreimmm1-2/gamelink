@@ -4,10 +4,10 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
 const GAMES = [
-  { name: 'Roblox', emoji: '🎮', players: 1240, recommended: true },
-  { name: 'Minecraft', emoji: '⛏️', players: 980, sponsored: true },
-  { name: 'Fortnite', emoji: '🎯', players: 760 },
-  { name: 'AmongUs', emoji: '👨‍🚀', players: 420, recommended: true },
+  { name: 'Roblox', image: 'https://images.roblox.com/Roblox_logo.svg', players: 1240, recommended: true },
+  { name: 'Minecraft', image: 'https://www.minecraft.net/content/dam/games/minecraft/key-art/minecraft-key-visual-logo.png', players: 980, sponsored: true },
+  { name: 'Fortnite', image: 'https://www.fortniteultimate.com/logo.png', players: 760 },
+  { name: 'AmongUs', image: 'https://innersloth.com/logo.png', players: 420, recommended: true },
 ]
 
 export default function Home() {
@@ -137,7 +137,7 @@ export default function Home() {
                       className="bg-slate-700/50 rounded-lg p-4 text-center hover:bg-slate-700 transition animate-fadeIn"
                       style={{ animationDelay: `${i * 100}ms` }}
                     >
-                      <div className="text-4xl mb-2">{game.emoji}</div>
+                      <img src={game.image} alt={game.name} className="h-12 w-12 object-contain mx-auto mb-2" />
                       <p className="text-white font-semibold">{game.name}</p>
                       <p className="text-slate-400 text-sm">{game.players || '—'} players</p>
                     </div>
@@ -302,7 +302,7 @@ function GamesGrid({ games }) {
             <Link key={game.name} href={`/games/${game.name}`}>
               <div className="group bg-slate-800 border border-slate-700 hover:border-slate-600 rounded-xl p-6 transition cursor-pointer h-full">
                 <div className="flex items-center justify-between">
-                  <div className="text-6xl mb-4 group-hover:scale-110 transition">{game.emoji}</div>
+                  <img src={game.image} alt={game.name} className="h-16 w-16 object-contain mb-4 group-hover:scale-110 transition" />
                   <div className="text-sm text-slate-300">
                     <div className="text-right font-semibold">{game.players || '—'}</div>
                     <div className="text-slate-400 text-xs">players</div>
