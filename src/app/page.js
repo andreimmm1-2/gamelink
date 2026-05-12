@@ -4,17 +4,24 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
 const GAMES = [
-  { name: 'Roblox', image: 'https://images.roblox.com/Roblox_logo.svg', players: 1240, recommended: true },
-  { name: 'Minecraft', image: 'https://www.minecraft.net/content/dam/games/minecraft/key-art/minecraft-key-visual-logo.png', players: 980, sponsored: true },
+  { name: 'Roblox', image: 'https://images.roblox.com/Roblox_logo.svg', players: 1240 },
+  { name: 'Minecraft', image: 'https://www.minecraft.net/content/dam/games/minecraft/key-art/minecraft-key-visual-logo.png', players: 980 },
   { name: 'Fortnite', image: 'https://www.fortniteultimate.com/logo.png', players: 760 },
-  { name: 'AmongUs', image: 'https://innersloth.com/logo.png', players: 420, recommended: true },
+  { name: 'AmongUs', image: 'https://innersloth.com/logo.png', players: 420 },
+]
+
+const QUICK_ACTIONS = [
+  { title: 'Find Gamers', desc: 'Discover players', icon: '🔍', href: '/discover', color: 'from-blue-600 to-blue-800' },
+  { title: 'Create Profile', desc: 'Build your profile', icon: '👤', href: '/signup', color: 'from-purple-600 to-purple-800' },
+  { title: 'Explore Games', desc: 'Browse by game', icon: '🎮', href: '/discover', color: 'from-pink-600 to-pink-800' },
+  { title: 'Messages', desc: 'Chat with teams', icon: '💬', href: '/messages', color: 'from-cyan-600 to-cyan-800' },
 ]
 
 export default function Home() {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
   const [stats, setStats] = useState({ players: 0, profiles: 0 })
-  const [gamesState, setGamesState] = useState(GAMES.map(g => ({ ...g })))
+  const [gamesCounts, setGamesCounts] = useState({})
 
   useEffect(() => {
     async function fetchData() {
@@ -39,8 +46,7 @@ export default function Home() {
           if (!g) continue
           counts[g] = (counts[g] || 0) + 1
         }
-
-        setGamesState(prev => prev.map(g => ({ ...g, players: counts[g.name] || g.players || 0 })))
+        setGamesCounts(counts)
       } catch (err) {
         console.error('Failed to fetch data:', err)
       } finally {
