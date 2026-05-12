@@ -4,10 +4,10 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
 const GAMES = [
-  { name: 'Roblox', image: 'https://images.roblox.com/Roblox_logo.svg', players: 1240 },
-  { name: 'Minecraft', image: 'https://www.minecraft.net/content/dam/games/minecraft/key-art/minecraft-key-visual-logo.png', players: 980 },
-  { name: 'Fortnite', image: 'https://www.fortniteultimate.com/logo.png', players: 760 },
-  { name: 'AmongUs', image: 'https://innersloth.com/logo.png', players: 420 },
+  { name: 'Roblox', image: '/images/roblox.svg', players: 1240 },
+  { name: 'Minecraft', image: '/images/minecraft.svg', players: 980 },
+  { name: 'Fortnite', image: '/images/fortnite.svg', players: 760 },
+  { name: 'AmongUs', image: '/images/amongus.svg', players: 420 },
 ]
 
 
