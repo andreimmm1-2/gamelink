@@ -14,7 +14,8 @@ const GAME_INFO = {
     genre: 'Platform',
     accentColor: 'from-red-600 to-red-800',
     accentLight: 'red-500',
-    accentBg: 'bg-red-500/20'
+    accentBg: 'bg-red-500/20',
+    variant: 'split'
   },
   'Minecraft': {
     image: 'https://www.minecraft.net/content/dam/games/minecraft/key-art/minecraft-key-visual-logo.png',
@@ -24,7 +25,8 @@ const GAME_INFO = {
     genre: 'Sandbox',
     accentColor: 'from-green-600 to-green-800',
     accentLight: 'green-500',
-    accentBg: 'bg-green-500/20'
+    accentBg: 'bg-green-500/20',
+    variant: 'center'
   },
   'Fortnite': {
     image: 'https://www.fortniteultimate.com/logo.png',
@@ -34,7 +36,8 @@ const GAME_INFO = {
     genre: 'Battle Royale',
     accentColor: 'from-purple-600 to-purple-800',
     accentLight: 'purple-500',
-    accentBg: 'bg-purple-500/20'
+    accentBg: 'bg-purple-500/20',
+    variant: 'imageRight'
   },
   'AmongUs': {
     image: 'https://innersloth.com/logo.png',
@@ -44,7 +47,8 @@ const GAME_INFO = {
     genre: 'Social Deduction',
     accentColor: 'from-cyan-600 to-cyan-800',
     accentLight: 'cyan-500',
-    accentBg: 'bg-cyan-500/20'
+    accentBg: 'bg-cyan-500/20',
+    variant: 'compact'
   },
   'Other': {
     image: 'https://cdn-icons-png.flaticon.com/512/413/413502.png',
@@ -54,24 +58,14 @@ const GAME_INFO = {
     genre: 'Various',
     accentColor: 'from-blue-600 to-blue-800',
     accentLight: 'blue-500',
-    accentBg: 'bg-blue-500/20'
+    accentBg: 'bg-blue-500/20',
+    variant: 'default'
   }
 }
 
-// Mock content for game activity
-const MOCK_ACTIVITY = [
-  { id: 1, type: 'post', title: 'Looking for PvP teammates', author: 'GamerX', time: '2h ago', likes: 24 },
-  { id: 2, type: 'event', title: 'Community Tournament', author: 'Admin', time: '4h ago', likes: 156 },
-  { id: 3, type: 'guide', title: 'Beginner Tips & Tricks', author: 'ProPlayer', time: '6h ago', likes: 89 },
-  { id: 4, type: 'post', title: 'New season discussion', author: 'Community', time: '8h ago', likes: 342 },
-]
-
-const MOCK_COMMUNITIES = [
-  { name: 'Competitive Players', members: 1240, trending: true },
-  { name: 'Casual & Chill', members: 3890, trending: false },
-  { name: 'Speedrunners', members: 456, trending: true },
-  { name: 'Content Creators', members: 678, trending: false },
-]
+// Placeholder — replace with real community/activity APIs in the future
+const COMMUNITIES = []
+const ACTIVITY = []
 
 async function fetchProfilesForGame(game) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || ''}/api/profiles?game=${encodeURIComponent(game)}`, { cache: 'no-store' })
@@ -92,6 +86,13 @@ export default async function GamePage({ params }) {
   const profiles = await fetchProfilesForGame(game)
   const promotions = await fetchPromotionsForGame(game)
   const gameInfo = GAME_INFO[game] || GAME_INFO['Other']
+  const variant = gameInfo.variant || 'default'
+  const heroReverse = variant === 'imageRight'
+  const heroCenter = variant === 'center'
+  const compactHero = variant === 'compact'
+
+  // sectionsOrder controls which sections appear first; compact games prioritize Active Gamers
+  const sectionsOrder = compactHero ? ['active', 'communities', 'activity'] : ['communities', 'activity', 'active']
 
   return (
     <main className="min-h-screen bg-black text-white">
@@ -101,13 +102,13 @@ export default async function GamePage({ params }) {
           <Link href="/" className="text-slate-400 hover:text-slate-300 text-sm mb-4 inline-block">
             ← Back Home
           </Link>
-          <div className="flex items-start gap-8">
-            <div className="h-28 w-28 rounded-xl bg-slate-800/50 flex items-center justify-center flex-shrink-0">
-              <img src={gameInfo.image} alt={game} className="h-20 w-20 object-contain" />
+          <div className={`flex ${heroCenter ? 'justify-center text-center items-center' : 'items-start'} gap-8 ${heroReverse ? 'flex-row-reverse' : ''}`}>
+            <div className={`h-28 w-28 rounded-xl bg-slate-800/50 flex items-center justify-center flex-shrink-0 ${heroCenter ? '' : ''}`}>
+              <img src={gameInfo.image} alt={game} className={`${compactHero ? 'h-16 w-16' : 'h-20 w-20'} object-contain`} />
             </div>
             <div className="flex-1">
-              <h1 className="text-6xl font-black mb-3">{game}</h1>
-              <p className="text-xl text-slate-300 mb-6 max-w-2xl">{gameInfo.description}</p>
+              <h1 className={`${compactHero ? 'text-4xl' : 'text-6xl'} font-black mb-3`}>{game}</h1>
+              <p className={`${compactHero ? 'text-base' : 'text-xl'} text-slate-300 mb-6 max-w-2xl`}>{gameInfo.description}</p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <div>
                   <div className="text-sm text-slate-400">Players Online</div>
@@ -135,72 +136,100 @@ export default async function GamePage({ params }) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
-            {/* Featured Communities */}
-            <section>
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-3xl font-black">Featured Communities</h2>
-                <Link href="#" className="text-slate-400 hover:text-slate-300 transition">View All →</Link>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {MOCK_COMMUNITIES.map((community, i) => (
-                  <div key={i} className={`group rounded-xl border border-slate-700/50 ${gameInfo.accentBg} bg-slate-800/30 p-6 hover:border-slate-600 transition cursor-pointer`}>
-                    <div className="flex items-start justify-between mb-3">
-                      <h3 className="text-lg font-bold group-hover:text-slate-300 transition">{community.name}</h3>
-                      {community.trending && <span className="px-2 py-1 bg-amber-500/20 text-amber-400 text-xs font-semibold rounded-full">Trending</span>}
+            {sectionsOrder.map((s) => {
+              if (s === 'communities') {
+                return (
+                  <section key="communities">
+                    <div className="flex items-center justify-between mb-6">
+                      <h2 className="text-3xl font-black">Featured Communities</h2>
+                      <Link href="#" className="text-slate-400 hover:text-slate-300 transition">View All →</Link>
                     </div>
-                    <p className="text-slate-400 text-sm mb-3">{community.members.toLocaleString()} members</p>
-                    <button className="w-full py-2 bg-slate-700/50 hover:bg-slate-600 rounded-lg font-semibold transition">
-                      Join Community
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* Activity Feed */}
-            <section>
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-3xl font-black">Community Activity</h2>
-              </div>
-              <div className="space-y-3">
-                {MOCK_ACTIVITY.map((activity) => (
-                  <div key={activity.id} className="rounded-xl border border-slate-700/50 bg-slate-800/30 p-5 hover:border-slate-600 transition cursor-pointer">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-2">
-                          <span className={`px-2 py-1 bg-slate-700/50 rounded text-xs font-semibold capitalize`}>{activity.type}</span>
-                          <span className="text-slate-400 text-xs">{activity.time}</span>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {COMMUNITIES.length === 0 ? (
+                        <div className="rounded-xl border border-slate-700/50 bg-slate-800/30 p-6 text-center">
+                          <p className="text-slate-400 mb-3">No featured communities yet for this game.</p>
+                          <p className="text-slate-400 text-sm mb-4">Communities appear when users create groups or when promoted by admins.</p>
+                          <Link href="/dashboard" className="inline-block py-2 px-4 bg-slate-700/50 hover:bg-slate-600 rounded-lg font-semibold">Create a Community</Link>
                         </div>
-                        <h3 className="font-bold text-lg mb-1">{activity.title}</h3>
-                        <p className="text-slate-400 text-sm">by {activity.author}</p>
-                      </div>
-                      <div className="text-right text-slate-400 text-sm">
-                        <div className="font-bold text-slate-300">{activity.likes}</div>
-                        <div className="text-xs">reactions</div>
-                      </div>
+                      ) : (
+                        COMMUNITIES.map((community, i) => (
+                          <div key={i} className={`group rounded-xl border border-slate-700/50 ${gameInfo.accentBg} bg-slate-800/30 p-6 hover:border-slate-600 transition cursor-pointer`}>
+                            <div className="flex items-start justify-between mb-3">
+                              <h3 className="text-lg font-bold group-hover:text-slate-300 transition">{community.name}</h3>
+                              {community.trending && <span className="px-2 py-1 bg-amber-500/20 text-amber-400 text-xs font-semibold rounded-full">Trending</span>}
+                            </div>
+                            <p className="text-slate-400 text-sm mb-3">Members information available when communities are created</p>
+                            <button className="w-full py-2 bg-slate-700/50 hover:bg-slate-600 rounded-lg font-semibold transition">
+                              Join Community
+                            </button>
+                          </div>
+                        ))
+                      )}
                     </div>
-                  </div>
-                ))}
-              </div>
-            </section>
+                  </section>
+                )
+              }
 
-            {/* Active Gamers */}
-            <section>
-              <h2 className="text-3xl font-black mb-6">Active Gamers</h2>
-              <div className="rounded-xl border border-slate-700/50 bg-slate-800/30 p-6">
-                {profiles.length === 0 ? (
-                  <div className="text-center py-12">
-                    <div className="text-5xl mb-3">🔍</div>
-                    <p className="text-slate-400 mb-2">No players found for {game}</p>
-                    <Link href="/signup" className="text-blue-400 hover:text-blue-300 text-sm">
-                      Be the first to create a profile!
-                    </Link>
-                  </div>
-                ) : (
-                  <DiscoverList initialProfiles={profiles} />
-                )}
-              </div>
-            </section>
+              if (s === 'activity') {
+                return (
+                  <section key="activity">
+                    <div className="flex items-center justify-between mb-6">
+                      <h2 className="text-3xl font-black">Community Activity</h2>
+                    </div>
+                    <div className="space-y-3">
+                      {ACTIVITY.length === 0 ? (
+                        <div className="rounded-xl border border-slate-700/50 bg-slate-800/30 p-8 text-center">
+                          <p className="text-slate-400 mb-2">No recent community activity to display.</p>
+                          <p className="text-slate-400 text-sm mb-4">Activity will appear here when members post or events are created.</p>
+                          <Link href="/dashboard" className="inline-block py-2 px-4 bg-slate-700/50 hover:bg-slate-600 rounded-lg font-semibold">Create a post or event</Link>
+                        </div>
+                      ) : (
+                        ACTIVITY.map((activity) => (
+                          <div key={activity.id} className="rounded-xl border border-slate-700/50 bg-slate-800/30 p-5 hover:border-slate-600 transition cursor-pointer">
+                            <div className="flex items-start justify-between">
+                              <div className="flex-1">
+                                <div className="flex items-center gap-2 mb-2">
+                                  <span className={`px-2 py-1 bg-slate-700/50 rounded text-xs font-semibold capitalize`}>{activity.type}</span>
+                                  <span className="text-slate-400 text-xs">{activity.time}</span>
+                                </div>
+                                <h3 className="font-bold text-lg mb-1">{activity.title}</h3>
+                                <p className="text-slate-400 text-sm">by {activity.author}</p>
+                              </div>
+                              <div className="text-right text-slate-400 text-sm">
+                                <div className="font-bold text-slate-300">{activity.likes}</div>
+                                <div className="text-xs">reactions</div>
+                              </div>
+                            </div>
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  </section>
+                )
+              }
+
+              if (s === 'active') {
+                return (
+                  <section key="active">
+                    <h2 className="text-3xl font-black mb-6">Active Gamers</h2>
+                    <div className="rounded-xl border border-slate-700/50 bg-slate-800/30 p-6">
+                      {profiles.length === 0 ? (
+                        <div className="text-center py-12">
+                          <div className="text-5xl mb-3">🔍</div>
+                          <p className="text-slate-400 mb-2">No players found for {game}</p>
+                          <Link href="/signup" className="text-blue-400 hover:text-blue-300 text-sm">Be the first to create a profile!</Link>
+                        </div>
+                      ) : (
+                        <DiscoverList initialProfiles={profiles} />
+                      )}
+                    </div>
+                  </section>
+                )
+              }
+
+              return null
+            })}
+          </div>
           </div>
 
           {/* Sidebar */}
