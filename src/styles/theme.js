@@ -9,9 +9,9 @@ export const THEME = {
     bg700: '#4a5568',       // Medium dark grey
     bg600: '#718096',       // Medium grey
     
-    // Accents
-    purple: '#8b5cf6',      // Soft purple
-    purpleLight: '#a78bfa', // Light purple
+    // Accents (muted)
+    purple: '#6366f1',      // Muted indigo
+    purpleLight: '#93a0f8', // Softer light indigo
     
     // Semantics
     success: '#10b981',

@@ -15,8 +15,8 @@
   --text-secondary: #cbd5e1;
   --text-tertiary: #94a3b8;
   
-  --accent: #8b5cf6;
-  --accent-light: #a78bfa;
+  --accent: #6366f1;
+  --accent-light: #93a0f8;
   
   --success: #10b981;
   --warning: #f59e0b;
@@ -54,8 +54,8 @@ body {
 
 /* Selection */
 ::selection {
-  background-color: #8b5cf6;
-  color: #f1f5f9;
+  background-color: var(--accent);
+  color: var(--text-primary);
 }
 
 /* Animations */
@@ -146,7 +146,7 @@ body {
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+  background: linear-gradient(135deg, var(--accent), var(--accent-light));
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -154,12 +154,27 @@ body {
 
 /* Card styles */
 .card {
-  @apply bg-slate-800 border border-slate-700 rounded-lg p-6 transition-all hover:border-purple-500 hover:shadow-lg hover:shadow-purple-500/20;
+  @apply bg-slate-800 border border-slate-700 rounded-lg p-6 transition-all;
+}
+
+.card:hover {
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  box-shadow: 0 6px 18px 0 rgba(99,102,241,0.08);
 }
 
 /* Button variants */
 .btn-primary {
-  @apply bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-lg transition-all active:scale-95 disabled:opacity-50;
+  background-color: var(--accent);
+  color: var(--text-primary);
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: transform .08s ease, opacity .12s ease;
+}
+
+.btn-primary:hover {
+  background-color: color-mix(in srgb, var(--accent) 85%, black 15%);
+  transform: translateY(-1px);
 }
 
 .btn-secondary {
@@ -167,9 +182,11 @@ body {
 }
 
 .btn-ghost {
-  @apply text-purple-400 hover:text-purple-300 font-semibold py-2 px-4 rounded-lg transition-all;
+  color: color-mix(in srgb, var(--accent) 65%, #94a3b8 35%);
+  font-weight: 600;
+  padding: 0.5rem 1rem;
 }
 
 .btn-outline {
-  @apply bg-transparent border border-slate-700 hover:border-purple-500 text-white font-semibold py-2 px-4 rounded-lg transition-all;
+  @apply bg-transparent border border-slate-700 text-white font-semibold py-2 px-4 rounded-lg transition-all;
 }
