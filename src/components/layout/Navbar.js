@@ -18,7 +18,6 @@ export default function Navbar() {
     } catch (err) {
       console.error('Logout error:', err)
     }
-    document.cookie = 'token=; Max-Age=0; path=/;'
     window.location.reload()
   }
 
@@ -37,7 +36,7 @@ export default function Navbar() {
             <span className="text-xl font-black text-white group-hover:text-slate-400 transition bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent group-hover:from-slate-400 group-hover:to-slate-600">
               GameLink
             </span>
-            <span className=\"text-xs text-slate-500 group-hover:text-slate-400 transition\">Gaming Community</span>
+            <span className="text-xs text-slate-500 group-hover:text-slate-400 transition">Gaming Community</span>
           </div>
         </Link>
 

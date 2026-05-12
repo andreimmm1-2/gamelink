@@ -43,7 +43,11 @@ export default function DashboardPage() {
   }, [refreshCount])
 
   async function handleLogout() {
-    document.cookie = 'token=; Max-Age=0; path=/;'
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' })
+    } catch (err) {
+      console.error('Logout error:', err)
+    }
     router.push('/')
   }
 

@@ -39,7 +39,6 @@ export default function AdminDashboard() {
   async function handleLogout() {
     try {
       await fetch('/api/admin/logout', { method: 'POST' })
-      document.cookie = 'admin_token=; Max-Age=0; path=/;'
       router.push('/admin/login')
     } catch (err) {
       console.error('Logout error:', err)

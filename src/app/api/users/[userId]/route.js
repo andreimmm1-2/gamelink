@@ -9,19 +9,19 @@ function isUUID(str) {
 
 export async function GET(req, { params }) {
   try {
-    const { username } = params
-    
+    const { userId } = params
+
     let query = supabase
       .from('users')
       .select('id, username, email, bio, profile_picture, created_at, profiles:game_profiles(id, game, inGameName, in_game_name, description, availability)')
-    
+
     // Check if it's a UUID or username
-    if (isUUID(username)) {
-      query = query.eq('id', username)
+    if (isUUID(userId)) {
+      query = query.eq('id', userId)
     } else {
-      query = query.eq('username', username)
+      query = query.eq('username', userId)
     }
-    
+
     const { data: user, error } = await query.maybeSingle()
 
     if (error || !user) return new Response(JSON.stringify({ error: 'User not found' }), { status: 404, headers: { 'Content-Type': 'application/json' } })
@@ -37,10 +37,10 @@ export async function PATCH(req, { params }) {
     const current = await getUserFromRequest(req)
     if (!current) return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401, headers: { 'Content-Type': 'application/json' } })
 
-    const { username } = params
-    
+    const { userId } = params
+
     // Check if trying to update own profile
-    const isOwnId = isUUID(username) ? current.id === username : current.username === username
+    const isOwnId = isUUID(userId) ? current.id === userId : current.username === userId
     if (!isOwnId) {
       return new Response(JSON.stringify({ error: 'Forbidden' }), { status: 403, headers: { 'Content-Type': 'application/json' } })
     }
@@ -52,12 +52,12 @@ export async function PATCH(req, { params }) {
 
     // Update by ID if UUID, otherwise by username
     let updateQuery = supabase.from('users').update(updates)
-    if (isUUID(username)) {
-      updateQuery = updateQuery.eq('id', username)
+    if (isUUID(userId)) {
+      updateQuery = updateQuery.eq('id', userId)
     } else {
-      updateQuery = updateQuery.eq('username', username)
+      updateQuery = updateQuery.eq('username', userId)
     }
-    
+
     const { data: user, error } = await updateQuery
       .select('id, username, email, bio, profile_picture, created_at')
       .single()
@@ -76,24 +76,24 @@ export async function DELETE(req, { params }) {
     const current = await getUserFromRequest(req)
     if (!current) return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401, headers: { 'Content-Type': 'application/json' } })
 
-    const { username } = params
-    
+    const { userId } = params
+
     // Check if trying to delete own account
-    const isOwnId = isUUID(username) ? current.id === username : current.username === username
+    const isOwnId = isUUID(userId) ? current.id === userId : current.username === userId
     if (!isOwnId) {
       return new Response(JSON.stringify({ error: 'Forbidden' }), { status: 403, headers: { 'Content-Type': 'application/json' } })
     }
 
-    const userId = isUUID(username) ? username : current.id
+    const targetUserId = isUUID(userId) ? userId : current.id
 
     // Delete all user data in order (important for foreign keys)
     const deletions = [
-      supabase.from('support_tickets').delete().eq('user_id', userId),
-      supabase.from('game_profiles').delete().eq('user_id', userId),
-      supabase.from('messages').delete().or(`sender_id.eq.${userId},recipient_id.eq.${userId}`),
-      supabase.from('friend_requests').delete().or(`sender_id.eq.${userId},recipient_id.eq.${userId}`),
-      supabase.from('friends').delete().or(`user_id.eq.${userId},friend_id.eq.${userId}`),
-      supabase.from('users').delete().eq('id', userId)
+      supabase.from('support_tickets').delete().eq('user_id', targetUserId),
+      supabase.from('game_profiles').delete().eq('user_id', targetUserId),
+      supabase.from('messages').delete().or(`sender_id.eq.${targetUserId},recipient_id.eq.${targetUserId}`),
+      supabase.from('friend_requests').delete().or(`sender_id.eq.${targetUserId},recipient_id.eq.${targetUserId}`),
+      supabase.from('friends').delete().or(`user_id.eq.${targetUserId},friend_id.eq.${targetUserId}`),
+      supabase.from('users').delete().eq('id', targetUserId)
     ]
 
     // Execute deletions sequentially to avoid constraint issues
@@ -117,8 +117,8 @@ export async function PUT(req, { params }) {
     const current = await getUserFromRequest(req)
     if (!current) return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401, headers: { 'Content-Type': 'application/json' } })
 
-    const { username } = params
-    if (current.username !== username && current.id !== username) {
+    const { userId } = params
+    if (current.username !== userId && current.id !== userId) {
       return new Response(JSON.stringify({ error: 'Forbidden' }), { status: 403, headers: { 'Content-Type': 'application/json' } })
     }
 
@@ -130,7 +130,7 @@ export async function PUT(req, { params }) {
     const { data: user, error } = await supabase
       .from('users')
       .update(updates)
-      .eq('username', username)
+      .eq(isUUID(userId) ? 'id' : 'username', userId)
       .select('id, username, email, bio, profile_picture, created_at')
       .single()
 

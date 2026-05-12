@@ -13,12 +13,14 @@ export async function POST(req) {
     }
 
     // Verify they are friends
-    const { data: friendship } = await supabase
+    const { data: friendship, error: friendshipError } = await supabase
       .from('friends')
       .select('id')
       .eq('user_id', user.id)
       .eq('friend_id', recipientId)
-      .single()
+      .maybeSingle()
+
+    if (friendshipError) throw friendshipError
 
     if (!friendship) {
       return new Response(JSON.stringify({ error: 'Not friends' }), { status: 403 })
@@ -53,7 +55,7 @@ export async function GET(req) {
     // Get list of conversations (friends with recent messages)
     const { data: friends, error: friendError } = await supabase
       .from('friends')
-      .select('friend:friend_id(id, username), created_at')
+      .select('friend_id, friend:friend_id(id, username), created_at')
       .eq('user_id', user.id)
 
     if (friendError) throw friendError

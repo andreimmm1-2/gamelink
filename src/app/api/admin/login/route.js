@@ -12,6 +12,10 @@ export async function POST(req) {
   try {
     const { email, password } = await req.json()
 
+    if (!email || !password) {
+      return new Response(JSON.stringify({ error: 'Email and password are required' }), { status: 400 })
+    }
+
     // Verify email is @gamelink.admin
     if (!email.includes('@gamelink.admin')) {
       return new Response(JSON.stringify({ error: 'Invalid admin email domain' }), { status: 401 })

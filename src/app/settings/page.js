@@ -106,7 +106,11 @@ export default function SettingsPage() {
         throw new Error(data.error || 'Failed to delete account')
       }
       
-      document.cookie = 'token=; Max-Age=0; path=/;'
+      try {
+        await fetch('/api/auth/logout', { method: 'POST' })
+      } catch (logoutError) {
+        console.error('Logout after account deletion failed:', logoutError)
+      }
       setTimeout(() => router.push('/'), 1000)
     } catch (err) {
       console.error('Delete account error:', err)

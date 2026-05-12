@@ -18,7 +18,7 @@ function verifyAdminToken(req) {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
-    return decoded.isAdmin ? decoded : null
+    return decoded.isAdmin || decoded.isOwner ? decoded : null
   } catch {
     return null
   }

@@ -9,12 +9,14 @@ export async function GET(req, { params }) {
     const { userId } = params
 
     // Verify they are friends
-    const { data: friendship } = await supabase
+    const { data: friendship, error: friendshipError } = await supabase
       .from('friends')
       .select('id')
       .eq('user_id', user.id)
       .eq('friend_id', userId)
-      .single()
+      .maybeSingle()
+
+    if (friendshipError) throw friendshipError
 
     if (!friendship) {
       return new Response(JSON.stringify({ error: 'Not friends' }), { status: 403 })

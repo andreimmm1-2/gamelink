@@ -1,4 +1,4 @@
-import { getUserFromRequest } from '../../../../../src/lib/middleware/authMiddleware'
+import { getUserFromRequest } from '../../../../lib/middleware/authMiddleware'
 
 export async function GET(req) {
   try {

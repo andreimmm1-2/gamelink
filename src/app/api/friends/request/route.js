@@ -45,7 +45,7 @@ export async function POST(req) {
 
 export async function GET(req) {
   try {
-    const user = await verifyAuth(req)
+    const user = await getUserFromRequest(req)
     if (!user) return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 })
 
     // Get pending friend requests

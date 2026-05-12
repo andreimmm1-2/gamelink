@@ -4,16 +4,17 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
 const GAMES = [
-  { name: 'Roblox', emoji: '🎮' },
-  { name: 'Minecraft', emoji: '⛏️' },
-  { name: 'Fortnite', emoji: '🎯' },
-  { name: 'AmongUs', emoji: '👨‍🚀' },
+  { name: 'Roblox', emoji: '🎮', players: 1240, recommended: true },
+  { name: 'Minecraft', emoji: '⛏️', players: 980, sponsored: true },
+  { name: 'Fortnite', emoji: '🎯', players: 760 },
+  { name: 'AmongUs', emoji: '👨‍🚀', players: 420, recommended: true },
 ]
 
 export default function Home() {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
   const [stats, setStats] = useState({ players: 0, profiles: 0 })
+  const [gamesState, setGamesState] = useState(GAMES.map(g => ({ ...g })))
 
   useEffect(() => {
     async function fetchData() {
@@ -23,16 +24,23 @@ export default function Home() {
         const userData = await userRes.json()
         setUser(userData.user || null)
 
-        // Fetch real stats
+        // Fetch real stats and update game player counts
         const profilesRes = await fetch('/api/profiles', { method: 'GET' })
         const profilesData = await profilesRes.json()
         const allProfiles = profilesData.profiles || []
-        
+
         const uniquePlayers = new Set(allProfiles.map(p => p.user_id)).size
-        setStats({ 
-          players: uniquePlayers, 
-          profiles: allProfiles.length 
-        })
+        setStats({ players: uniquePlayers, profiles: allProfiles.length })
+
+        // compute counts per game name
+        const counts = {}
+        for (const p of allProfiles) {
+          const g = p.game || p.game_name || p.gameName || ''
+          if (!g) continue
+          counts[g] = (counts[g] || 0) + 1
+        }
+
+        setGamesState(prev => prev.map(g => ({ ...g, players: counts[g.name] || g.players || 0 })))
       } catch (err) {
         console.error('Failed to fetch data:', err)
       } finally {
@@ -108,7 +116,7 @@ export default function Home() {
                   <p className="text-slate-400 text-sm">Active Players</p>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-slate-400">{GAMES.length}</div>
+                  <div className="text-3xl font-bold text-slate-400">{gamesState.length}</div>
                   <p className="text-slate-400 text-sm">Supported Games</p>
                 </div>
                 <div>
@@ -123,7 +131,7 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-transparent rounded-2xl blur-3xl"></div>
               <div className="relative bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-2xl p-8">
                 <div className="grid grid-cols-2 gap-4">
-                  {GAMES.map((game, i) => (
+                  {gamesState.map((game, i) => (
                     <div
                       key={game.name}
                       className="bg-slate-700/50 rounded-lg p-4 text-center hover:bg-slate-700 transition animate-fadeIn"
@@ -131,7 +139,7 @@ export default function Home() {
                     >
                       <div className="text-4xl mb-2">{game.emoji}</div>
                       <p className="text-white font-semibold">{game.name}</p>
-                      <p className="text-slate-400 text-sm">{game.count} players</p>
+                      <p className="text-slate-400 text-sm">{game.players || '—'} players</p>
                     </div>
                   ))}
                 </div>
@@ -148,19 +156,7 @@ export default function Home() {
             <h2 className="text-4xl font-bold text-white mb-4">Explore Games</h2>
             <p className="text-slate-400">Connect with players across your favorite games</p>
           </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {GAMES.map((game) => (
-              <Link key={game.name} href={`/games/${game.name}`}>
-                <div className="group bg-slate-800 border border-slate-700 hover:border-slate-600 rounded-xl p-6 transition cursor-pointer h-full">
-                  <div className="text-6xl mb-4 group-hover:scale-110 transition">{game.emoji}</div>
-                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-slate-400">{game.name}</h3>
-                  <p className="text-slate-400 text-sm">Discover players</p>
-                  <div className="mt-4 text-slate-400 opacity-0 group-hover:opacity-100 transition">→</div>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <GamesGrid games={gamesState} />
         </div>
       </section>
 
@@ -257,5 +253,75 @@ export default function Home() {
         </div>
       </section>
     </div>
+  )
+}
+
+function GamesGrid({ games }) {
+  const [tab, setTab] = useState('all')
+
+  const tabs = [
+    { id: 'all', label: 'All' },
+    { id: 'recommended', label: 'Recommended' },
+    { id: 'sponsored', label: 'Sponsored' },
+    { id: 'new', label: 'New' }
+  ]
+
+  const filtered = games.filter(g => {
+    if (tab === 'all') return true
+    if (tab === 'recommended') return g.recommended
+    if (tab === 'sponsored') return g.sponsored
+    if (tab === 'new') return g.new
+    return true
+  })
+
+  return (
+    <>
+      <div className="flex gap-3 justify-center mb-6">
+        {tabs.map(t => (
+          <button
+            key={t.id}
+            onClick={() => setTab(t.id)}
+            className={`px-4 py-2 rounded-full font-medium ${tab === t.id ? 'bg-slate-700 text-white' : 'bg-slate-800 text-slate-300 border border-slate-700'}`}>
+            {t.label}
+          </button>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {filtered.length === 0 ? (
+          // empty state: show placeholders so page doesn't look empty
+          Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="bg-slate-800 border border-slate-700 rounded-xl p-6 animate-pulse">
+              <div className="h-16 w-16 bg-slate-700 rounded mb-4 mx-auto"></div>
+              <div className="h-4 bg-slate-700 rounded mb-2"></div>
+              <div className="h-3 bg-slate-700 rounded w-3/4 mx-auto"></div>
+            </div>
+          ))
+        ) : (
+          filtered.map((game) => (
+            <Link key={game.name} href={`/games/${game.name}`}>
+              <div className="group bg-slate-800 border border-slate-700 hover:border-slate-600 rounded-xl p-6 transition cursor-pointer h-full">
+                <div className="flex items-center justify-between">
+                  <div className="text-6xl mb-4 group-hover:scale-110 transition">{game.emoji}</div>
+                  <div className="text-sm text-slate-300">
+                    <div className="text-right font-semibold">{game.players || '—'}</div>
+                    <div className="text-slate-400 text-xs">players</div>
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-slate-400">{game.name}</h3>
+                <p className="text-slate-400 text-sm">Discover players</p>
+                <div className="mt-4 flex items-center justify-between">
+                  <div>
+                    {game.sponsored && <span className="px-2 py-1 bg-amber-600 text-black rounded-full text-xs font-semibold mr-2">Sponsored</span>}
+                    {game.recommended && <span className="px-2 py-1 bg-emerald-600 text-black rounded-full text-xs font-semibold">Recommended</span>}
+                  </div>
+                  <div className="text-slate-400">→</div>
+                </div>
+              </div>
+            </Link>
+          ))
+        )}
+      </div>
+    </>
   )
 }
