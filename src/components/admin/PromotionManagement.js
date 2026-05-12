@@ -111,12 +111,16 @@ export default function PromotionManagement({ user }) {
               value={formData.serverName}
               onChange={(e) => setFormData({ ...formData, serverName: e.target.value })}
               required
-              className="bg-slate-700 text-white px-4 py-2 rounded-lg border border-slate-600 focus:border-purple-500 focus:outline-none"
+              className="bg-slate-700 text-white px-4 py-2 rounded-lg border border-slate-600 focus:outline-none"
+              onFocus={(e) => (e.target.style.borderColor = 'var(--accent)')}
+              onBlur={(e) => (e.target.style.borderColor = '')}
             />
             <select
               value={formData.game}
               onChange={(e) => setFormData({ ...formData, game: e.target.value })}
-              className="bg-slate-700 text-white px-4 py-2 rounded-lg border border-slate-600 focus:border-purple-500 focus:outline-none"
+              className="bg-slate-700 text-white px-4 py-2 rounded-lg border border-slate-600 focus:outline-none"
+              onFocus={(e) => (e.target.style.borderColor = 'var(--accent)')}
+              onBlur={(e) => (e.target.style.borderColor = '')}
             >
               <option>Roblox</option>
               <option>Minecraft</option>
@@ -131,7 +135,9 @@ export default function PromotionManagement({ user }) {
             value={formData.title}
             onChange={(e) => setFormData({ ...formData, title: e.target.value })}
             required
-            className="w-full bg-slate-700 text-white px-4 py-2 rounded-lg border border-slate-600 focus:border-purple-500 focus:outline-none"
+            className="w-full bg-slate-700 text-white px-4 py-2 rounded-lg border border-slate-600 focus:outline-none"
+            onFocus={(e) => (e.target.style.borderColor = 'var(--accent)')}
+            onBlur={(e) => (e.target.style.borderColor = '')}
           />
 
           <textarea
@@ -139,7 +145,9 @@ export default function PromotionManagement({ user }) {
             value={formData.description}
             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
             rows={4}
-            className="w-full bg-slate-700 text-white px-4 py-2 rounded-lg border border-slate-600 focus:border-purple-500 focus:outline-none resize-none"
+            className="w-full bg-slate-700 text-white px-4 py-2 rounded-lg border border-slate-600 focus:outline-none resize-none"
+            onFocus={(e) => (e.target.style.borderColor = 'var(--accent)')}
+            onBlur={(e) => (e.target.style.borderColor = '')}
           />
 
           <input
@@ -148,7 +156,9 @@ export default function PromotionManagement({ user }) {
             value={formData.joinUrl}
             onChange={(e) => setFormData({ ...formData, joinUrl: e.target.value })}
             required
-            className="w-full bg-slate-700 text-white px-4 py-2 rounded-lg border border-slate-600 focus:border-purple-500 focus:outline-none"
+            className="w-full bg-slate-700 text-white px-4 py-2 rounded-lg border border-slate-600 focus:outline-none"
+            onFocus={(e) => (e.target.style.borderColor = 'var(--accent)')}
+            onBlur={(e) => (e.target.style.borderColor = '')}
           />
 
           <button
@@ -176,7 +186,7 @@ export default function PromotionManagement({ user }) {
       ) : (
         <div className="space-y-4">
           {promotions.map(promo => (
-            <div key={promo.id} className="bg-slate-800 border border-slate-700 rounded-lg p-6 hover:border-purple-500 transition">
+            <div key={promo.id} className="bg-slate-800 border border-slate-700 rounded-lg p-6 transition" onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--accent)')} onMouseLeave={(e) => (e.currentTarget.style.borderColor = '')}>
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <h3 className="text-lg font-semibold text-white">{promo.title}</h3>

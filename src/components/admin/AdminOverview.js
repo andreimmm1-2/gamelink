@@ -38,7 +38,7 @@ export default function AdminOverview({ user }) {
     <div className="space-y-8">
       <div>
         <h2 className="text-3xl font-bold text-white mb-6">Overview</h2>
-        <p className="text-slate-400">Welcome back, <span className="text-purple-400">{user.email}</span></p>
+        <p className="text-slate-400">Welcome back, <span style={{ color: 'var(--accent)' }}>{user.email}</span></p>
       </div>
 
       {/* Stats Grid */}
@@ -87,7 +87,7 @@ export default function AdminOverview({ user }) {
             <div className="flex items-start justify-between mb-4">
               <div>
                 <p className="text-slate-400 text-sm">Staff Members</p>
-                <p className="text-3xl font-bold text-purple-400 mt-2">{stats.staffMembers}</p>
+                <p className="text-3xl font-bold mt-2" style={{ color: 'var(--accent)' }}>{stats.staffMembers}</p>
               </div>
               <div className="text-3xl">👔</div>
             </div>
@@ -106,7 +106,7 @@ export default function AdminOverview({ user }) {
           </div>
           <div>
             <p className="text-slate-400 text-sm">Email</p>
-            <p className="text-lg font-semibold text-purple-400 mt-1 truncate">{user.email}</p>
+            <p className="text-lg font-semibold mt-1 truncate" style={{ color: 'var(--accent)' }}>{user.email}</p>
           </div>
           <div>
             <p className="text-slate-400 text-sm">Permissions</p>

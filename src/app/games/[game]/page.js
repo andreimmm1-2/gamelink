@@ -9,7 +9,7 @@ const GAMES = ['Roblox', 'Minecraft', 'Fortnite', 'AmongUs', 'Other']
 
 const GAME_INFO = {
   'Roblox': {
-    image: 'https://images.roblox.com/Roblox_logo.svg',
+    image: '/images/roblox.svg',
     description: 'The platform for 3D experiences. Create, play, and be anything you imagine.',
     players: 'Millions',
     founded: '2006',
@@ -20,7 +20,7 @@ const GAME_INFO = {
     variant: 'split'
   },
   'Minecraft': {
-    image: 'https://www.minecraft.net/content/dam/games/minecraft/key-art/minecraft-key-visual-logo.png',
+    image: '/images/minecraft.svg',
     description: 'Build, explore, and survive in infinite worlds.',
     players: 'Millions',
     founded: '2011',
@@ -31,7 +31,7 @@ const GAME_INFO = {
     variant: 'center'
   },
   'Fortnite': {
-    image: 'https://www.fortniteultimate.com/logo.png',
+    image: '/images/fortnite.svg',
     description: 'Battle royale action. Fight to be the last standing.',
     players: 'Millions',
     founded: '2018',
@@ -42,7 +42,7 @@ const GAME_INFO = {
     variant: 'imageRight'
   },
   'AmongUs': {
-    image: 'https://innersloth.com/logo.png',
+    image: '/images/amongus.svg',
     description: 'Social deduction game. Work together to find the impostor.',
     players: 'Millions',
     founded: '2018',
@@ -53,11 +53,11 @@ const GAME_INFO = {
     variant: 'compact'
   },
   'Other': {
-    image: 'https://cdn-icons-png.flaticon.com/512/413/413502.png',
-    description: 'Discover other amazing games and find your squad.',
-    players: 'Many',
-    founded: 'Various',
-    genre: 'Various',
+    image: '/images/game-icon.svg',
+    description: 'Explore games beyond our featured titles.',
+    players: 'Community',
+    founded: 'Growing',
+    genre: 'Diverse',
     accentColor: 'from-blue-600 to-blue-800',
     accentLight: 'blue-500',
     accentBg: 'bg-blue-500/20',

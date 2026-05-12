@@ -74,12 +74,12 @@ export default function UserManagement({ user }) {
           placeholder="Search users..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="flex-1 bg-slate-800 text-white px-4 py-2 rounded-lg border border-slate-700 focus:border-purple-500 focus:outline-none"
+          className="flex-1 bg-slate-800 text-white px-4 py-2 rounded-lg border border-slate-700 focus:outline-none" onFocus={(e) => e.target.style.borderColor = 'var(--accent)'} onBlur={(e) => e.target.style.borderColor = ''}
         />
         <select
           value={selectedRole}
           onChange={(e) => setSelectedRole(e.target.value)}
-          className="bg-slate-800 text-white px-4 py-2 rounded-lg border border-slate-700 focus:border-purple-500 focus:outline-none"
+          className="bg-slate-800 text-white px-4 py-2 rounded-lg border border-slate-700 focus:outline-none" onFocus={(e) => e.target.style.borderColor = 'var(--accent)'} onBlur={(e) => e.target.style.borderColor = ''}
         >
           <option value="">All Roles</option>
           <option value="user">User</option>
@@ -117,7 +117,7 @@ export default function UserManagement({ user }) {
                   <td className="px-6 py-4 text-white font-medium">@{u.username}</td>
                   <td className="px-6 py-4 text-slate-400">{u.email}</td>
                   <td className="px-6 py-4">
-                    <span className="px-3 py-1 rounded-full text-xs font-semibold bg-purple-600/20 text-purple-400 capitalize">
+                    <span className="px-3 py-1 rounded-full text-xs font-semibold capitalize" style={{ backgroundColor: 'rgba(99, 102, 241, 0.12)', color: 'var(--accent)' }}>
                       {u.role}
                     </span>
                   </td>
