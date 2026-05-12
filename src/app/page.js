@@ -53,275 +53,121 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-900">
+      <div className="min-h-screen flex items-center justify-center bg-black">
         <div className="text-white text-lg">Loading...</div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-slate-900">
+    <div className="min-h-screen bg-black text-white">
       {/* Hero Section */}
-      <section className="relative py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-800/20 to-transparent"></div>
-        <div className="container relative">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left Content */}
-            <div className="animate-slideInLeft">
-              <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
-                Find Your Gaming <span className="gradient-text">Squad</span>
-              </h1>
-              <p className="text-xl text-slate-300 mb-8 leading-relaxed">
-                Connect with millions of gamers, build your profile, discover new teammates, and find featured gaming servers. GameLink is the ultimate platform for gamers looking to connect.
-              </p>
-              
-              <div className="flex gap-4 flex-wrap">
-                {user ? (
-                  <>
-                    <Link
-                      href="/dashboard"
-                      className="px-8 py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-semibold transition"
-                    >
-                      Go to Dashboard
-                    </Link>
-                    <Link
-                      href="/discover"
-                      className="px-8 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-semibold transition border border-slate-700"
-                    >
-                      Discover Players
-                    </Link>
-                  </>
-                ) : (
-                  <>
-                    <Link
-                      href="/signup"
-                      className="px-8 py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-semibold transition"
-                    >
-                      Get Started
-                    </Link>
-                    <Link
-                      href="/login"
-                      className="px-8 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-semibold transition border border-slate-700"
-                    >
-                      Sign In
-                    </Link>
-                  </>
-                )}
-              </div>
+      <section className="py-24 border-b border-slate-700">
+        <div className="max-w-6xl mx-auto px-4 text-center">
+          <h1 className="text-6xl md:text-7xl font-black mb-6">Find Your Gaming Squad</h1>
+          <p className="text-xl text-slate-300 mb-12 max-w-2xl mx-auto">
+            Connect with millions of gamers, find teammates, and discover gaming communities.
+          </p>
 
-              {/* Stats */}
-              <div className="grid grid-cols-3 gap-6 mt-12">
-                <div>
-                  <div className="text-3xl font-bold text-slate-400">{stats.players}</div>
-                  <p className="text-slate-400 text-sm">Active Players</p>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-slate-400">{gamesState.length}</div>
-                  <p className="text-slate-400 text-sm">Supported Games</p>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-slate-400">100%</div>
-                  <p className="text-slate-400 text-sm">Free to Use</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Visual */}
-            <div className="relative hidden lg:block">
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-transparent rounded-2xl blur-3xl"></div>
-              <div className="relative bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-2xl p-8">
-                <div className="grid grid-cols-2 gap-4">
-                  {gamesState.map((game, i) => (
-                    <div
-                      key={game.name}
-                      className="bg-slate-700/50 rounded-lg p-4 text-center hover:bg-slate-700 transition animate-fadeIn"
-                      style={{ animationDelay: `${i * 100}ms` }}
-                    >
-                      <img src={game.image} alt={game.name} className="h-12 w-12 object-contain mx-auto mb-2" />
-                      <p className="text-white font-semibold">{game.name}</p>
-                      <p className="text-slate-400 text-sm">{game.players || '—'} players</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Games Section */}
-      <section className="py-20 border-t border-slate-700">
-        <div className="container">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-white mb-4">Explore Games</h2>
-            <p className="text-slate-400">Connect with players across your favorite games</p>
-          </div>
-          <GamesGrid games={gamesState} />
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-20 border-t border-slate-700">
-        <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="group">
-              <div className="bg-slate-800 rounded-lg p-8 border border-slate-700 group-hover:border-slate-600 transition h-full">
-                <div className="text-4xl mb-4">👤</div>
-                <h3 className="text-lg font-bold text-white mb-2">Create Your Profile</h3>
-                <p className="text-slate-400 text-sm">Set up your gaming profile and showcase your skills across multiple games.</p>
-              </div>
-            </div>
-
-            <div className="group">
-              <div className="bg-slate-800 rounded-lg p-8 border border-slate-700 group-hover:border-slate-600 transition h-full">
-                <div className="text-4xl mb-4">🔍</div>
-                <h3 className="text-lg font-bold text-white mb-2">Discover Players</h3>
-                <p className="text-slate-400 text-sm">Search and filter players by game, timezone, and availability to find your perfect match.</p>
-              </div>
-            </div>
-
-            <div className="group">
-              <div className="bg-slate-800 rounded-lg p-8 border border-slate-700 group-hover:border-slate-600 transition h-full">
-                <div className="text-4xl mb-4">💬</div>
-                <h3 className="text-lg font-bold text-white mb-2">Connect & Chat</h3>
-                <p className="text-slate-400 text-sm">Send friend requests and start chatting with players you want to team up with.</p>
-              </div>
-            </div>
-
-            <div className="group">
-              <div className="bg-slate-800 rounded-lg p-8 border border-slate-700 group-hover:border-slate-600 transition h-full">
-                <div className="text-4xl mb-4">⭐</div>
-                <h3 className="text-lg font-bold text-white mb-2">Featured Servers</h3>
-                <p className="text-slate-400 text-sm">Discover promoted game servers and exclusive gaming communities and events.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="py-20 border-t border-slate-700">
-        <div className="container">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="text-5xl font-bold gradient-text mb-2">{stats.players}</div>
-              <p className="text-slate-400">Active Players</p>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl font-bold gradient-text mb-2">{stats.profiles}</div>
-              <p className="text-slate-400">Profiles Created</p>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl font-bold gradient-text mb-2">4</div>
-              <p className="text-slate-400">Games Supported</p>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl font-bold gradient-text mb-2">24/7</div>
-              <p className="text-slate-400">Support Available</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 border-t border-slate-700">
-        <div className="container">
-          <div className="bg-gradient-to-r from-slate-800/50 to-slate-900 border border-slate-700/30 rounded-2xl p-16 text-center">
-            <h2 className="text-4xl font-bold text-white mb-4">
-              Ready to Find Your Squad?
-            </h2>
-            <p className="text-xl text-slate-300 mb-8">
-              Join thousands of gamers already connecting on GameLink.
-            </p>
-            {!user && (
-              <div className="flex gap-4 justify-center flex-wrap">
-                <Link
-                  href="/signup"
-                  className="px-8 py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-semibold transition"
-                >
-                  Sign Up Now
+          {/* Main CTAs */}
+          <div className="flex gap-4 justify-center flex-wrap mb-8">
+            {user ? (
+              <>
+                <Link href="/dashboard" className="px-8 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-bold transition">
+                  Dashboard
                 </Link>
-                <Link
-                  href="/discover"
-                  className="px-8 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-semibold transition border border-slate-700"
-                >
-                  Browse Without Account
+                <Link href="/discover" className="px-8 py-3 bg-slate-800 hover:bg-slate-700 rounded-lg font-bold transition">
+                  Find Players
                 </Link>
-              </div>
+              </>
+            ) : (
+              <>
+                <Link href="/signup" className="px-8 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-bold transition">
+                  Get Started
+                </Link>
+                <Link href="/login" className="px-8 py-3 bg-slate-800 hover:bg-slate-700 rounded-lg font-bold transition">
+                  Sign In
+                </Link>
+              </>
             )}
           </div>
+
+          {/* Stats Bar */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto">
+            <div>
+              <div className="text-4xl font-black text-blue-400">{stats.players}</div>
+              <div className="text-slate-400 text-sm">Active Players</div>
+            </div>
+            <div>
+              <div className="text-4xl font-black text-blue-400">{stats.profiles}</div>
+              <div className="text-slate-400 text-sm">Profiles</div>
+            </div>
+            <div>
+              <div className="text-4xl font-black text-blue-400">4</div>
+              <div className="text-slate-400 text-sm">Games</div>
+            </div>
+            <div>
+              <div className="text-4xl font-black text-blue-400">24/7</div>
+              <div className="text-slate-400 text-sm">Support</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Quick Access */}
+      <section className="py-16 border-b border-slate-700">
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="text-3xl font-black mb-10">Quick Access</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {QUICK_ACTIONS.map((action) => (
+              <Link key={action.title} href={action.href}>
+                <div className={`group bg-gradient-to-br ${action.color} bg-opacity-20 border border-slate-700 hover:border-slate-600 rounded-xl p-6 transition cursor-pointer`}>
+                  <div className="text-4xl mb-3">{action.icon}</div>
+                  <h3 className="font-bold text-lg mb-1">{action.title}</h3>
+                  <p className="text-slate-400 text-sm group-hover:text-slate-300">{action.desc}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Trending Games */}
+      <section className="py-16 border-b border-slate-700">
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="text-3xl font-black mb-10">Trending Games</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {GAMES.map((game) => (
+              <Link key={game.name} href={`/games/${game.name}`}>
+                <div className="group bg-slate-800/30 border border-slate-700/50 hover:border-slate-600 rounded-xl p-6 transition cursor-pointer">
+                  <div className="flex items-start justify-between mb-4">
+                    <img src={game.image} alt={game.name} className="h-16 w-16 object-contain group-hover:scale-110 transition" />
+                    <div className="text-right">
+                      <div className="font-bold text-slate-200">{gamesCounts[game.name] || game.players}</div>
+                      <div className="text-xs text-slate-400">players</div>
+                    </div>
+                  </div>
+                  <h3 className="text-xl font-bold mb-2 group-hover:text-blue-400 transition">{game.name}</h3>
+                  <p className="text-slate-400 text-sm">Browse community</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="py-16">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="text-4xl font-black mb-4">Ready to Find Your Squad?</h2>
+          <p className="text-lg text-slate-300 mb-8">Join thousands of gamers connecting on GameLink</p>
+          {!user && (
+            <Link href="/signup" className="inline-block px-8 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-bold transition">
+              Get Started Free
+            </Link>
+          )}
         </div>
       </section>
     </div>
-  )
-}
-
-function GamesGrid({ games }) {
-  const [tab, setTab] = useState('all')
-
-  const tabs = [
-    { id: 'all', label: 'All' },
-    { id: 'recommended', label: 'Recommended' },
-    { id: 'sponsored', label: 'Sponsored' },
-    { id: 'new', label: 'New' }
-  ]
-
-  const filtered = games.filter(g => {
-    if (tab === 'all') return true
-    if (tab === 'recommended') return g.recommended
-    if (tab === 'sponsored') return g.sponsored
-    if (tab === 'new') return g.new
-    return true
-  })
-
-  return (
-    <>
-      <div className="flex gap-3 justify-center mb-6">
-        {tabs.map(t => (
-          <button
-            key={t.id}
-            onClick={() => setTab(t.id)}
-            className={`px-4 py-2 rounded-full font-medium ${tab === t.id ? 'bg-slate-700 text-white' : 'bg-slate-800 text-slate-300 border border-slate-700'}`}>
-            {t.label}
-          </button>
-        ))}
-      </div>
-
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {filtered.length === 0 ? (
-          // empty state: show placeholders so page doesn't look empty
-          Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="bg-slate-800 border border-slate-700 rounded-xl p-6 animate-pulse">
-              <div className="h-16 w-16 bg-slate-700 rounded mb-4 mx-auto"></div>
-              <div className="h-4 bg-slate-700 rounded mb-2"></div>
-              <div className="h-3 bg-slate-700 rounded w-3/4 mx-auto"></div>
-            </div>
-          ))
-        ) : (
-          filtered.map((game) => (
-            <Link key={game.name} href={`/games/${game.name}`}>
-              <div className="group bg-slate-800 border border-slate-700 hover:border-slate-600 rounded-xl p-6 transition cursor-pointer h-full">
-                <div className="flex items-center justify-between">
-                  <img src={game.image} alt={game.name} className="h-16 w-16 object-contain mb-4 group-hover:scale-110 transition" />
-                  <div className="text-sm text-slate-300">
-                    <div className="text-right font-semibold">{game.players || '—'}</div>
-                    <div className="text-slate-400 text-xs">players</div>
-                  </div>
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-slate-400">{game.name}</h3>
-                <p className="text-slate-400 text-sm">Discover players</p>
-                <div className="mt-4 flex items-center justify-between">
-                  <div>
-                    {game.sponsored && <span className="px-2 py-1 bg-amber-600 text-black rounded-full text-xs font-semibold mr-2">Sponsored</span>}
-                    {game.recommended && <span className="px-2 py-1 bg-emerald-600 text-black rounded-full text-xs font-semibold">Recommended</span>}
-                  </div>
-                  <div className="text-slate-400">→</div>
-                </div>
-              </div>
-            </Link>
-          ))
-        )}
-      </div>
-    </>
   )
 }
