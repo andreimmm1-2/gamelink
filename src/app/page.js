@@ -10,18 +10,20 @@ const GAMES = [
   { name: 'AmongUs', image: 'https://innersloth.com/logo.png', players: 420 },
 ]
 
-const QUICK_ACTIONS = [
-  { title: 'Find Gamers', desc: 'Discover players', icon: '🔍', href: '/discover', color: 'from-blue-600 to-blue-800' },
-  { title: 'Create Profile', desc: 'Build your profile', icon: '👤', href: '/signup', color: 'from-purple-600 to-purple-800' },
-  { title: 'Explore Games', desc: 'Browse by game', icon: '🎮', href: '/discover', color: 'from-pink-600 to-pink-800' },
-  { title: 'Messages', desc: 'Chat with teams', icon: '💬', href: '/messages', color: 'from-cyan-600 to-cyan-800' },
-]
 
 export default function Home() {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
   const [stats, setStats] = useState({ players: 0, profiles: 0 })
   const [gamesCounts, setGamesCounts] = useState({})
+
+  // Define QUICK_ACTIONS inside the component to ensure it's bundled with the client code
+  const QUICK_ACTIONS = [
+    { title: 'Find Gamers', desc: 'Discover players', icon: '🔍', href: '/discover', color: 'from-blue-600 to-blue-800' },
+    { title: 'Create Profile', desc: 'Build your profile', icon: '👤', href: '/signup', color: 'from-purple-600 to-purple-800' },
+    { title: 'Explore Games', desc: 'Browse by game', icon: '🎮', href: '/discover', color: 'from-pink-600 to-pink-800' },
+    { title: 'Messages', desc: 'Chat with teams', icon: '💬', href: '/messages', color: 'from-cyan-600 to-cyan-800' },
+  ]
 
   useEffect(() => {
     async function fetchData() {
