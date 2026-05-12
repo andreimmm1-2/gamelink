@@ -132,6 +132,57 @@ body {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
+/* Carousel and visual UI styles */
+.carousel-container {
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+.carousel-image {
+  transition: transform .6s ease, filter .4s ease;
+  transform-origin: center;
+  filter: saturate(1.05) contrast(1.02) brightness(0.92);
+}
+.carousel-container:hover .carousel-image {
+  transform: scale(1.03);
+  filter: saturate(1.08) contrast(1.05) brightness(0.98);
+}
+.carousel-overlay {
+  pointer-events: none;
+}
+.glow-btn {
+  background: linear-gradient(90deg, var(--accent), var(--accent-light));
+  color: var(--text-primary);
+  padding: 0.6rem 1rem;
+  border-radius: 0.6rem;
+  font-weight: 700;
+  box-shadow: 0 6px 30px rgba(99,102,241,0.12), 0 0 18px rgba(99,102,241,0.08) inset;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.glow-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 40px rgba(99,102,241,0.18), 0 0 28px rgba(99,102,241,0.1) inset;
+}
+.trending-badge {
+  display: inline-block;
+  background: linear-gradient(90deg, rgba(255,184,64,0.12), rgba(255,184,64,0.06));
+  color: #ffd88c;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  box-shadow: 0 6px 20px rgba(255,184,64,0.04);
+  animation: badgePulse 2.6s ease-in-out infinite;
+}
+@keyframes badgePulse {
+  0% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-3px) scale(1.02); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+.carousel-dots button { opacity: 0.95 }
+
 /* Utility classes */
 .container {
   @apply max-w-7xl mx-auto px-4;

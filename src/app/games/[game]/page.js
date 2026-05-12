@@ -2,6 +2,8 @@ import React from 'react'
 import Link from 'next/link'
 import DiscoverList from '../../../components/game/DiscoverList'
 import PromotionCard from '../../../components/promotions/PromotionCard'
+import dynamic from 'next/dynamic'
+const HeroCarousel = dynamic(() => import('../../../../src/components/game/HeroCarousel').then(m => m.default), { ssr: false })
 
 const GAMES = ['Roblox', 'Minecraft', 'Fortnite', 'AmongUs', 'Other']
 
@@ -128,7 +130,12 @@ export default async function GamePage({ params }) {
                 </div>
               </div>
             </div>
-          </div>
+            </div>
+
+            {/* Enhanced visual hero area (carousel/featured artwork) */}
+            <div className="max-w-6xl mx-auto px-4 mt-8">
+              <HeroCarousel game={game} gameInfo={gameInfo} promotions={promotions} />
+            </div>
         </div>
       </div>
 
