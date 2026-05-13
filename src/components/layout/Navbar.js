@@ -45,6 +45,18 @@ export default function Navbar() {
           <Link href="/discover" className="text-slate-300 hover:text-slate-400 transition font-medium">
             Discover
           </Link>
+
+          <Link href="/find-players" className="text-slate-300 hover:text-slate-400 transition font-medium">
+            Find Players
+          </Link>
+
+          <Link href="/teams" className="text-slate-300 hover:text-slate-400 transition font-medium">
+            Teams
+          </Link>
+
+          <Link href="/leaderboards" className="text-slate-300 hover:text-slate-400 transition font-medium">
+            Leaderboards
+          </Link>
           
           {/* Games Dropdown */}
           <div className="relative">
@@ -143,6 +155,15 @@ export default function Navbar() {
           <div className="container py-4 space-y-4">
             <Link href="/discover" className="block text-slate-300 hover:text-slate-400 transition">
               Discover
+            </Link>
+            <Link href="/find-players" className="block text-slate-300 hover:text-slate-400 transition">
+              Find Players
+            </Link>
+            <Link href="/teams" className="block text-slate-300 hover:text-slate-400 transition">
+              Teams
+            </Link>
+            <Link href="/leaderboards" className="block text-slate-300 hover:text-slate-400 transition">
+              Leaderboards
             </Link>
             {GAMES.map(game => (
               <Link
