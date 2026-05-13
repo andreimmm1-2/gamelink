@@ -329,7 +329,7 @@ export default function Home() {
                 <Link href="/signup" className="px-8 py-3 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 rounded-lg font-bold transition transform hover:scale-105 shadow-lg shadow-indigo-500/50 duration-200">
                   Get Started Free
                 </Link>
-                <Link href="/discover" className="px-8 py-3 bg-slate-800 hover:bg-slate-700 rounded-lg font-bold transition border border-slate-600 hover:border-slate-500 transform hover:scale-105 duration-200">
+                <Link href="/teams" className="px-8 py-3 bg-slate-800 hover:bg-slate-700 rounded-lg font-bold transition border border-slate-600 hover:border-slate-500 transform hover:scale-105 duration-200">
                   Browse Players
                 </Link>
               </>

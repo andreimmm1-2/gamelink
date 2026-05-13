@@ -278,7 +278,7 @@ export default async function GamePage({ params }) {
             <div className={`rounded-xl border border-slate-700/50 bg-gradient-to-br ${gameInfo.accentColor} bg-opacity-10 p-6 text-center`}>
               <h3 className="font-black text-lg mb-3">Find Teammates</h3>
               <p className="text-slate-300 text-sm mb-4">Join the community and find players to team up with</p>
-              <Link href={`/discover?game=${encodeURIComponent(game)}`} className={`inline-block w-full px-4 py-3 bg-gradient-to-r ${gameInfo.accentColor} rounded-lg font-bold transition hover:shadow-lg`}>
+              <Link href="/teams" className={`inline-block w-full px-4 py-3 bg-gradient-to-r ${gameInfo.accentColor} rounded-lg font-bold transition hover:shadow-lg`}>
                 Browse Players
               </Link>
             </div>

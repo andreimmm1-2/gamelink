@@ -112,7 +112,7 @@ export default async function DiscoverPage() {
               Create Your Profile
             </Link>
             <Link
-              href="/find-players"
+              href="/teams"
               className="px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-lg transition transform hover:scale-105 border border-slate-600 hover:border-slate-500 duration-200"
             >
               Browse Players
