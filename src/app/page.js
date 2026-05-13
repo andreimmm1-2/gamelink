@@ -247,9 +247,8 @@ export default function Home() {
           </div>
         </div>
       </section>
-          </div>
 
-          {/* Stats Bar */}
+      {/* Stats Bar */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto">
             <div>
               <div className="text-4xl font-black text-blue-400">{stats.players}</div>
