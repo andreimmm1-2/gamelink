@@ -57,6 +57,22 @@ export default function Navbar() {
           <Link href="/leaderboards" className="text-slate-300 hover:text-slate-400 transition font-medium">
             Leaderboards
           </Link>
+
+          <Link href="/tournaments" className="text-slate-300 hover:text-slate-400 transition font-medium">
+            Tournaments
+          </Link>
+
+          <Link href="/clans" className="text-slate-300 hover:text-slate-400 transition font-medium">
+            Clans
+          </Link>
+
+          <Link href="/community" className="text-slate-300 hover:text-slate-400 transition font-medium">
+            Community
+          </Link>
+
+          <Link href="/search" className="text-slate-300 hover:text-slate-400 transition font-medium">
+            Search
+          </Link>
           
           {/* Games Dropdown */}
           <div className="relative">
@@ -123,11 +139,27 @@ export default function Navbar() {
                 <Link href="/dashboard/my-profiles" className="block px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-white transition">
                   My Profiles
                 </Link>
-                <Link href="/settings" className="block px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-white transition">
-                  Settings
+                <Link href="/friends" className="block px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-white transition">
+                  Friends
+                </Link>
+                <Link href="/notifications" className="block px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-white transition">
+                  Notifications
                 </Link>
                 <Link href="/messages" className="block px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-white transition">
                   Messages
+                </Link>
+                <Link href="/statistics" className="block px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-white transition">
+                  Statistics
+                </Link>
+                <Link href="/achievements" className="block px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-white transition">
+                  Achievements
+                </Link>
+                <Link href="/rewards" className="block px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-white transition">
+                  Rewards
+                </Link>
+                <hr className="border-slate-700 my-2" />
+                <Link href="/settings" className="block px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-white transition">
+                  Settings
                 </Link>
                 <hr className="border-slate-700 my-2" />
                 <button
@@ -167,6 +199,18 @@ export default function Navbar() {
             </Link>
             <Link href="/leaderboards" className="block text-slate-300 hover:text-slate-400 transition">
               Leaderboards
+            </Link>
+            <Link href="/tournaments" className="block text-slate-300 hover:text-slate-400 transition">
+              Tournaments
+            </Link>
+            <Link href="/clans" className="block text-slate-300 hover:text-slate-400 transition">
+              Clans
+            </Link>
+            <Link href="/community" className="block text-slate-300 hover:text-slate-400 transition">
+              Community
+            </Link>
+            <Link href="/search" className="block text-slate-300 hover:text-slate-400 transition">
+              Search
             </Link>
             {GAMES.map(game => (
               <Link
