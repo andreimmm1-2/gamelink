@@ -2,8 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import DiscoverList from '../../../components/game/DiscoverList'
 import PromotionCard from '../../../components/promotions/PromotionCard'
-import dynamic from 'next/dynamic'
-const HeroCarousel = dynamic(() => import('../../../../src/components/game/HeroCarousel').then(m => m.default), { ssr: false })
+import HeroCarousel from '../../../components/game/HeroCarousel'
 
 const GAMES = ['Roblox', 'Minecraft', 'Fortnite', 'AmongUs', 'Other']
 
@@ -236,7 +235,6 @@ export default async function GamePage({ params }) {
 
               return null
             })}
-          </div>
           </div>
 
           {/* Sidebar */}
