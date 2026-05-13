@@ -24,8 +24,8 @@ export default function HeroCarousel({ game, gameInfo, promotions = [] }) {
         </div>
         <h2 className="text-2xl md:text-4xl font-extrabold tracking-tight">{slide.title}</h2>
         <div className="mt-4 flex gap-3">
-          <Link href="#" className="glow-btn inline-block">Join</Link>
-          <Link href="#" className="btn-secondary inline-block">More</Link>
+          <Link href={`/discover?game=${encodeURIComponent(game)}`} className="glow-btn inline-block">Join</Link>
+          <Link href="/dashboard" className="btn-secondary inline-block">More</Link>
         </div>
       </div>
 
