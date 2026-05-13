@@ -4,10 +4,10 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
 const GAMES = [
-  { name: 'Roblox', image: '/images/roblox.svg', players: 1240 },
-  { name: 'Minecraft', image: '/images/minecraft.svg', players: 980 },
-  { name: 'Fortnite', image: '/images/fortnite.svg', players: 760 },
-  { name: 'AmongUs', image: '/images/amongus.svg', players: 420 },
+  { name: 'Roblox', image: '/images/roblox.svg' },
+  { name: 'Minecraft', image: '/images/minecraft.svg' },
+  { name: 'Fortnite', image: '/images/fortnite.svg' },
+  { name: 'AmongUs', image: '/images/amongus.svg' },
 ]
 
 
@@ -166,7 +166,7 @@ export default function Home() {
                   <div className="flex items-start justify-between mb-4">
                     <img src={game.image} alt={game.name} className="h-16 w-16 object-contain group-hover:scale-125 group-hover:drop-shadow-lg transition duration-300" />
                     <div className="text-right">
-                      <div className="font-bold text-slate-200 text-lg">{gamesCounts[game.name] || game.players}</div>
+                      <div className="font-bold text-indigo-400 text-lg">{gamesCounts[game.name] || 0}</div>
                       <div className="text-xs text-slate-400">players</div>
                     </div>
                   </div>
@@ -176,6 +176,26 @@ export default function Home() {
                 </div>
               </Link>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Still New Banner */}
+      <section className="py-12 bg-gradient-to-r from-amber-600/20 to-orange-600/20 border-y border-amber-500/30">
+        <div className="max-w-6xl mx-auto px-4 text-center">
+          <div className="text-4xl mb-3">🚀</div>
+          <h2 className="text-2xl font-bold text-white mb-2">We're Still New & Growing!</h2>
+          <p className="text-amber-100 max-w-2xl mx-auto mb-6">
+            GameLink is brand new and we're just getting started. We need <span className="font-bold">YOU</span> to help build this community! 
+            Create your profile, invite your gaming friends, and let's grow together.
+          </p>
+          <div className="flex gap-4 justify-center flex-wrap">
+            <Link href="/dashboard/my-profiles" className="px-6 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg transition transform hover:scale-105">
+              Join the Community
+            </Link>
+            <Link href="/find-players" className="px-6 py-2 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-lg transition transform hover:scale-105 border border-slate-600">
+              Find Players
+            </Link>
           </div>
         </div>
       </section>

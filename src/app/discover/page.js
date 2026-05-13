@@ -102,7 +102,7 @@ export default async function DiscoverPage() {
         <div className="max-w-6xl mx-auto px-4 py-12 text-center">
           <h2 className="text-3xl font-bold text-white mb-3">🚀 Ready to Find Your Squad?</h2>
           <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
-            Create your gaming profile and let other players discover you! Join thousands of gamers building communities.
+            Create your gaming profile and let other players discover you! Help build our growing gaming community.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link
@@ -118,6 +118,18 @@ export default async function DiscoverPage() {
               Browse Players
             </Link>
           </div>
+        </div>
+      </div>
+
+      {/* Still New Banner */}
+      <div className="bg-gradient-to-r from-amber-600/20 to-orange-600/20 border-t border-amber-500/30">
+        <div className="max-w-6xl mx-auto px-4 py-12 text-center">
+          <div className="text-4xl mb-3">🚀</div>
+          <h2 className="text-2xl font-bold text-white mb-2">We're Still New & Growing!</h2>
+          <p className="text-amber-100 max-w-2xl mx-auto">
+            GameLink just launched and we're building something amazing. We need YOU to help grow this community! 
+            Create your profile and invite your gaming friends to be part of the movement.
+          </p>
         </div>
       </div>
     </main>
