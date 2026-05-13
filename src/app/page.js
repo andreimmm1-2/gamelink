@@ -249,6 +249,8 @@ export default function Home() {
       </section>
 
       {/* Stats Bar */}
+      <section className="py-16 border-b border-slate-700">
+        <div className="max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto">
             <div>
               <div className="text-4xl font-black text-blue-400">{stats.players}</div>
