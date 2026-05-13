@@ -137,9 +137,9 @@ export default function FindTeammatesPage() {
                         )}
 
                         <div className="pt-3 border-t border-slate-700">
-                          <button className="w-full px-3 py-2 bg-pink-600 hover:bg-pink-700 text-white text-sm font-bold rounded transition">
-                            💬 Team Up
-                          </button>
+                          <Link href={`/profile/${player.id}`} className="block w-full px-3 py-2 bg-pink-600 hover:bg-pink-700 text-white text-sm font-bold rounded text-center transition transform hover:scale-105">
+                            👤 View Profile
+                          </Link>
                         </div>
                       </div>
                     </Link>

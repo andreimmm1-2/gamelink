@@ -119,11 +119,11 @@ export default async function PlayerProfilePage({ params }) {
           <div className="space-y-6">
             {/* Action Buttons */}
             <div className="space-y-3">
-              <button className="w-full px-4 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg transition">
-                Send Message
-              </button>
+              <Link href="/messages" className="block w-full px-4 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg transition text-center">
+                💬 Send Message
+              </Link>
               <button className="w-full px-4 py-3 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-lg transition">
-                Add Friend
+                👥 Add Friend
               </button>
             </div>
 
