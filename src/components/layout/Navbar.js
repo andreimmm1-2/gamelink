@@ -120,6 +120,9 @@ export default function Navbar() {
                 <Link href="/dashboard" className="block px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-white transition">
                   Dashboard
                 </Link>
+                <Link href="/dashboard/my-profiles" className="block px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-white transition">
+                  My Profiles
+                </Link>
                 <Link href="/settings" className="block px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-white transition">
                   Settings
                 </Link>

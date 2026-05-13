@@ -18,6 +18,7 @@ export default function FindPlayersPage() {
   const [selectedTags, setSelectedTags] = useState([])
   const [searchQuery, setSearchQuery] = useState('')
   const [loading, setLoading] = useState(true)
+  const [hoveredFilter, setHoveredFilter] = useState(null)
 
   // Fetch all players on mount
   useEffect(() => {
@@ -84,41 +85,65 @@ export default function FindPlayersPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-12">
+        {/* Filter Info Bar */}
+        {(selectedGame || selectedTags.length > 0 || searchQuery) && (
+          <div className="mb-6 p-4 bg-indigo-600/20 border border-indigo-500/30 rounded-lg flex items-center justify-between animate-slideDown">
+            <div className="text-slate-300">
+              Found <span className="font-bold text-indigo-400">{filteredPlayers.length}</span> player{filteredPlayers.length !== 1 ? 's' : ''} matching your filters
+            </div>
+            <button
+              onClick={() => {
+                setSelectedGame('')
+                setSelectedTags([])
+                setSearchQuery('')
+              }}
+              className="px-3 py-1 bg-slate-700 hover:bg-slate-600 text-white text-sm font-semibold rounded transition"
+            >
+              Clear All
+            </button>
+          </div>
+        )}
+
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Filters Sidebar */}
           <div className="lg:col-span-1">
             <div className="sticky top-4 space-y-6">
               {/* Search */}
-              <div>
-                <label className="block text-sm font-semibold text-slate-300 mb-3">Search</label>
+              <div className="animate-fadeIn">
+                <label className="block text-sm font-semibold text-slate-300 mb-3">🔍 Search Players</label>
                 <input
                   type="text"
                   placeholder="Username or in-game name..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                  className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition"
                 />
               </div>
 
               {/* Game Filter */}
-              <div>
-                <label className="block text-sm font-semibold text-slate-300 mb-3">Game</label>
+              <div className="animate-fadeIn" style={{animationDelay: '0.05s'}}>
+                <label className="block text-sm font-semibold text-slate-300 mb-3">🎮 Game</label>
                 <div className="space-y-2">
                   <button
                     onClick={() => setSelectedGame('')}
-                    className={`w-full text-left px-3 py-2 rounded-lg transition ${
-                      !selectedGame ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
-                    }`}
+                    onMouseEnter={() => setHoveredFilter('all')}
+                    onMouseLeave={() => setHoveredFilter(null)}
+                    className={`w-full text-left px-3 py-2 rounded-lg transition transform ${
+                      !selectedGame ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/30' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                    } ${hoveredFilter === 'all' ? 'scale-105' : ''}`}
                   >
                     All Games
                   </button>
-                  {GAMES.map(game => (
+                  {GAMES.map((game, idx) => (
                     <button
                       key={game}
                       onClick={() => setSelectedGame(game)}
-                      className={`w-full text-left px-3 py-2 rounded-lg transition ${
-                        selectedGame === game ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
-                      }`}
+                      onMouseEnter={() => setHoveredFilter(game)}
+                      onMouseLeave={() => setHoveredFilter(null)}
+                      className={`w-full text-left px-3 py-2 rounded-lg transition transform ${
+                        selectedGame === game ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/30' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                      } ${hoveredFilter === game ? 'scale-105' : ''}`}
+                      style={{animationDelay: `${idx * 20}ms`}}
                     >
                       {game}
                     </button>
@@ -127,18 +152,19 @@ export default function FindPlayersPage() {
               </div>
 
               {/* Tag Filter */}
-              <div>
-                <label className="block text-sm font-semibold text-slate-300 mb-3">Playstyle & Skills</label>
+              <div className="animate-fadeIn" style={{animationDelay: '0.1s'}}>
+                <label className="block text-sm font-semibold text-slate-300 mb-3">🏷️ Playstyle & Skills</label>
                 <div className="flex flex-wrap gap-2">
-                  {AVAILABLE_TAGS.map(tag => (
+                  {AVAILABLE_TAGS.map((tag, idx) => (
                     <button
                       key={tag}
                       onClick={() => toggleTag(tag)}
-                      className={`px-3 py-1 rounded-full text-xs font-semibold transition ${
+                      className={`px-3 py-1 rounded-full text-xs font-semibold transition transform duration-200 ${
                         selectedTags.includes(tag)
-                          ? 'bg-indigo-600 text-white'
-                          : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                          ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 scale-110'
+                          : 'bg-slate-800 text-slate-300 hover:bg-slate-700 hover:scale-105'
                       }`}
+                      style={{animationDelay: `${idx * 10}ms`}}
                     >
                       {tag}
                     </button>
@@ -154,9 +180,9 @@ export default function FindPlayersPage() {
                     setSelectedTags([])
                     setSearchQuery('')
                   }}
-                  className="w-full px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg transition"
+                  className="w-full px-4 py-2 bg-red-600/20 hover:bg-red-600/40 text-red-400 font-semibold rounded-lg transition transform hover:scale-105 border border-red-500/30 duration-200"
                 >
-                  Clear Filters
+                  ✕ Reset All Filters
                 </button>
               )}
             </div>
@@ -166,55 +192,72 @@ export default function FindPlayersPage() {
           <div className="lg:col-span-3">
             {loading ? (
               <div className="text-center py-12">
-                <div className="text-slate-400">Loading players...</div>
+                <div className="inline-block w-12 h-12 border-4 border-slate-600 border-t-indigo-500 rounded-full animate-spin mb-4"></div>
+                <div className="text-slate-400">Loading {players.length} players...</div>
               </div>
             ) : filteredPlayers.length === 0 ? (
-              <div className="text-center py-12">
-                <div className="text-2xl mb-2">🔍</div>
-                <div className="text-slate-400">No players found. Try adjusting your filters.</div>
+              <div className="text-center py-12 bg-slate-800/30 border border-slate-700 rounded-lg">
+                <div className="text-5xl mb-2">🔍</div>
+                <div className="text-2xl font-bold text-white mb-2">No players found</div>
+                <div className="text-slate-400 mb-6">Try adjusting your filters or search query</div>
+                <button
+                  onClick={() => {
+                    setSelectedGame('')
+                    setSelectedTags([])
+                    setSearchQuery('')
+                  }}
+                  className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg transition"
+                >
+                  Clear Filters
+                </button>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {filteredPlayers.map(player => (
-                  <Link key={player.id} href={`/profile/${player.id}`}>
-                    <div className="group h-full bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-lg p-5 hover:border-indigo-500 hover:shadow-lg hover:shadow-indigo-500/10 transition cursor-pointer">
-                      {/* Header */}
-                      <div className="flex items-start justify-between mb-3">
-                        <div>
-                          <h3 className="font-bold text-white text-lg group-hover:text-indigo-400 transition">
-                            {player.in_game_name}
-                          </h3>
-                          <p className="text-sm text-slate-400">
-                            {player.users?.username || 'Anonymous'}
-                          </p>
+              <>
+                <div className="text-slate-300 mb-4 text-sm">
+                  Showing <span className="font-bold text-indigo-400">{filteredPlayers.length}</span> of <span className="font-bold">{players.length}</span> players
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {filteredPlayers.map((player, idx) => (
+                    <Link key={player.id} href={`/profile/${player.id}`}>
+                      <div className="group h-full bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 hover:border-indigo-500 rounded-lg p-5 hover:shadow-lg hover:shadow-indigo-500/20 transition cursor-pointer transform hover:scale-105 duration-300 animate-fadeIn" style={{animationDelay: `${idx * 30}ms`}}>
+                        {/* Header */}
+                        <div className="flex items-start justify-between mb-3">
+                          <div>
+                            <h3 className="font-bold text-white text-lg group-hover:text-indigo-400 transition">
+                              {player.in_game_name}
+                            </h3>
+                            <p className="text-sm text-slate-400">
+                              @{player.users?.username || 'anonymous'}
+                            </p>
+                          </div>
+                          <span className="px-2 py-1 bg-indigo-600/20 text-indigo-300 text-xs font-semibold rounded-full group-hover:bg-indigo-600/40 transition">
+                            {player.game}
+                          </span>
                         </div>
-                        <span className="px-2 py-1 bg-indigo-600/20 text-indigo-300 text-xs font-semibold rounded-full">
-                          {player.game}
-                        </span>
-                      </div>
 
-                      {/* Description */}
-                      <p className="text-slate-300 text-sm mb-4 line-clamp-2">
-                        {player.description || 'No description yet'}
-                      </p>
-
-                      {/* Availability */}
-                      {player.availability && (
-                        <p className="text-xs text-slate-500 mb-3">
-                          📅 {player.availability}
+                        {/* Description */}
+                        <p className="text-slate-300 text-sm mb-4 line-clamp-2">
+                          {player.description || '👤 No description yet'}
                         </p>
-                      )}
 
-                      {/* CTA */}
-                      <div className="pt-3 border-t border-slate-700">
-                        <button className="w-full px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-lg transition">
-                          View Profile
-                        </button>
+                        {/* Availability */}
+                        {player.availability && (
+                          <p className="text-xs text-slate-400 mb-3 flex items-center gap-1">
+                            📅 <span>{player.availability}</span>
+                          </p>
+                        )}
+
+                        {/* CTA */}
+                        <div className="pt-3 border-t border-slate-700">
+                          <button className="w-full px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-lg transition transform hover:scale-105 duration-200">
+                            👁️ View Profile
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
+                    </Link>
+                  ))}
+                </div>
+              </>
             )}
           </div>
         </div>

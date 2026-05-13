@@ -45,19 +45,20 @@ export default async function DiscoverPage() {
 
       {/* Games Grid */}
       <div className="max-w-6xl mx-auto px-4 py-12">
+        <h2 className="text-2xl font-bold text-white mb-8">🎮 Browse by Game</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-          {GAMES.map((game) => (
+          {GAMES.map((game, idx) => (
             <Link
               key={game.name}
               href={`/games/${game.name}`}
               className="group"
             >
-              <div className="h-full bg-gradient-to-br from-slate-800 to-slate-700 rounded-lg p-6 border border-slate-600 border-opacity-30 hover:border-opacity-100 transition hover:shadow-lg hover:shadow-slate-500/20">
+              <div className="h-full bg-gradient-to-br from-slate-800 to-slate-700 rounded-lg p-6 border border-slate-600 border-opacity-30 hover:border-indigo-500/50 transition hover:shadow-lg hover:shadow-indigo-500/20 transform hover:scale-105 duration-300 cursor-pointer animate-fadeIn" style={{animationDelay: `${idx * 50}ms`}}>
                 {/* Game Logo */}
-                <img src={game.image} alt={game.name} className="h-20 w-20 object-contain mb-3 group-hover:scale-110 transition" />
+                <img src={game.image} alt={game.name} className="h-20 w-20 object-contain mb-3 group-hover:scale-125 group-hover:drop-shadow-lg transition duration-300" />
 
                 {/* Game Name */}
-                <h2 className="text-xl font-bold text-white mb-1">{game.name}</h2>
+                <h2 className="text-xl font-bold text-white mb-1 group-hover:text-indigo-400 transition">{game.name}</h2>
 
                 {/* Description */}
                 <p className="text-gray-400 text-sm mb-4">{game.description}</p>
@@ -65,12 +66,12 @@ export default async function DiscoverPage() {
                 {/* Stats */}
                 <div className="flex items-end justify-between pt-4 border-t border-slate-600 border-opacity-20">
                   <div>
-                    <div className="text-2xl font-bold text-slate-400">{stats[game.name] || 0}</div>
+                    <div className="text-2xl font-bold text-indigo-400">{stats[game.name] || 0}</div>
                     <div className="text-xs text-gray-400">
                       {stats[game.name] === 1 ? 'player' : 'players'}
                     </div>
                   </div>
-                  <div className="text-gray-400 group-hover:text-slate-300 text-xl transition">→</div>
+                  <div className="text-gray-400 group-hover:text-indigo-400 text-xl transition transform group-hover:translate-x-1">→</div>
                 </div>
               </div>
             </Link>
@@ -78,25 +79,43 @@ export default async function DiscoverPage() {
         </div>
       </div>
 
+      {/* Features Section */}
+      <div className="max-w-6xl mx-auto px-4 py-12 mt-8">
+        <h2 className="text-2xl font-bold text-white mb-8">🌟 Discovery Features</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[
+            { icon: '🔍', title: 'Advanced Search', desc: 'Find players by game, skill level, and playstyle' },
+            { icon: '🏷️', title: 'Tag Filtering', desc: 'Discover players with specific skills and interests' },
+            { icon: '⭐', title: 'Ratings', desc: 'See player ratings and community feedback' }
+          ].map((feature, idx) => (
+            <div key={idx} className="p-6 bg-slate-800/30 border border-slate-700 hover:border-indigo-500/50 rounded-lg transition transform hover:scale-105 duration-300 cursor-pointer animate-fadeIn" style={{animationDelay: `${idx * 100}ms`}}>
+              <div className="text-3xl mb-3">{feature.icon}</div>
+              <h3 className="text-lg font-bold text-white mb-2">{feature.title}</h3>
+              <p className="text-slate-400 text-sm">{feature.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* CTA Section */}
-      <div className="bg-gradient-to-r from-slate-800/50 to-slate-900/50 border-t border-slate-600 border-opacity-30 mt-12">
+      <div className="bg-gradient-to-r from-indigo-600/20 to-blue-600/20 border-t border-indigo-500/30 border-b border-indigo-500/30 mt-12">
         <div className="max-w-6xl mx-auto px-4 py-12 text-center">
-          <h2 className="text-2xl font-bold text-white mb-3">Ready to Find Your Squad?</h2>
-          <p className="text-gray-400 mb-6">
-            Create your gaming profile and let other players discover you!
+          <h2 className="text-3xl font-bold text-white mb-3">🚀 Ready to Find Your Squad?</h2>
+          <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
+            Create your gaming profile and let other players discover you! Join thousands of gamers building communities.
           </p>
-          <div className="flex gap-4 justify-center">
+          <div className="flex gap-4 justify-center flex-wrap">
             <Link
-              href="/dashboard"
-              className="px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white font-medium rounded-lg transition"
+              href="/dashboard/my-profiles"
+              className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-bold rounded-lg transition transform hover:scale-105 shadow-lg shadow-indigo-500/50 duration-200"
             >
               Create Your Profile
             </Link>
             <Link
-              href="/"
-              className="px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white font-medium rounded-lg transition"
+              href="/find-players"
+              className="px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-lg transition transform hover:scale-105 border border-slate-600 hover:border-slate-500 duration-200"
             >
-              Learn More
+              Browse Players
             </Link>
           </div>
         </div>
